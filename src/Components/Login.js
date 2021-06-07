@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import {Input, Button} from 'semantic-ui-react'
+import {Form, Input, Button} from 'semantic-ui-react'
 import {useHistory} from 'react-router-dom'
 import {connect} from 'react-redux'
 
@@ -43,18 +43,16 @@ function Login(){
   }
 
   return(
-    <div id="photoContainer">
     <div id="loginFormContainer">
       <p className="welcomeBodyFont">Welcome to Ice Cream Social!</p>
       <p className="welcomeBodyFont">Login to get started.</p>
       {errorMessage ? <p>Incorrect email or password.</p> : null}
-      <form onSubmit={handleClick}>
+      <Form onSubmit={handleClick}>
         <Input className="input" label='Email' id="name" value={email} onChange={userEmail} type="text" placeholder="Your email address"></Input><br/>
         <Input className="input" label='Password' id="userpassword" value={password} onChange={userPassword} type="password" placeholder="Your password"></Input><br/>
         <Button>Login</Button><br/>
-      </form>
+      </Form>
     </div>
-  </div>
   )
 }
 
