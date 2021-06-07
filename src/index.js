@@ -1,17 +1,48 @@
-import React from 'react';
+import React from 'react'
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import {createStore, combineReducers} from 'redux'
+import {BrowserRouter} from 'react-router-dom'
+import {Provider} from 'react-redux'
+import 'semantic-ui-css/semantic.min.css'
+
+let initialStateOfUserReducer = {
+  username: "",
+  token: ""
+}
+
+function userReducer(state = initialStateOfUserReducer, action){
+
+  switch(action.type){
+    case "SET_USER_INFO":
+      return{
+        ...state,
+        username: action.payload.user.username,
+        token: action.payload.token
+      }
+    default:
+      return state
+  }
+}
+
+let allReducers = {
+  userInfo: userReducer
+  // otherCompInfo: compReducer,
+}
+
+let rootReducer = combineReducers(allReducers)
+
+let storeObj = createStore(
+  rootReducer, 
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  )
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <BrowserRouter>
+    <Provider store={storeObj}>
+      <App/>
+    </Provider>
+  </BrowserRouter>,
   document.getElementById('root')
-);
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+)
