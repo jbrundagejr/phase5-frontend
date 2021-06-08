@@ -47,6 +47,10 @@ function CreateProfile(){
     .then(res => res.json())
     .then(resp =>{
       if (resp.error){
+        setUserEmail("")
+        setUserPassword("")
+        setUserProfilePic("")
+        setUsername("")
         setErrorMessage(resp.error)
       } else {
         dispatch({type: "SET_USER_INFO", payload: resp})
