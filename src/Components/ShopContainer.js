@@ -1,4 +1,5 @@
 import {useEffect, useState} from 'react'
+import ShopCard from './ShopCard'
 
 
 function ShopContainer(){
@@ -10,10 +11,14 @@ function ShopContainer(){
       .then(shopData => setShopArr(shopData))
   }, [])
 
+  const cardArr = shopArr.map(shopObj => 
+    <ShopCard key={shopObj.id} shop={shopObj} />
+  )
+
   return(
     <div>
-      <h1>Shop Container</h1>
-      
+      <h1>Shops in New York City</h1>
+      {cardArr}
     </div>
   )
 }

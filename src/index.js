@@ -34,8 +34,8 @@ function userReducer(state = initialStateOfUserReducer, action){
 }
 
 let allReducers = {
-  userInfo: userReducer
-  // otherCompInfo: compReducer,
+  userInfo: userReducer,
+  // modalInfo: modalReducer
 }
 
 let rootReducer = combineReducers(allReducers)
