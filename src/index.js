@@ -9,17 +9,24 @@ import 'semantic-ui-css/semantic.min.css'
 
 let initialStateOfUserReducer = {
   username: "",
+  id: parseInt(""),
   token: ""
 }
 
 function userReducer(state = initialStateOfUserReducer, action){
-
   switch(action.type){
     case "SET_USER_INFO":
       return{
         ...state,
         username: action.payload.user.username,
+        id: action.payload.user.id,
         token: action.payload.token
+      }
+    case "LOG_OUT":
+      return{
+        ...state,
+        username: "",
+        token: ""
       }
     default:
       return state

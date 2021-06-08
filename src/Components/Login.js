@@ -1,14 +1,15 @@
 import {useState} from 'react'
 import {Form, Input, Button} from 'semantic-ui-react'
 import {useHistory} from 'react-router-dom'
-import {connect} from 'react-redux'
-
+import {useDispatch} from 'react-redux'
+import CreateProfile from './CreateProfile'
+ 
 function Login(){
-  const [userInfo, setUserInfo] = useState(null)
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [errorMessage, setErrorMessage] = useState("")
   const history = useHistory()
+  const dispatch = useDispatch()
 
   function userEmail(e){
     setEmail(e.target.value)
@@ -20,7 +21,7 @@ function Login(){
 
   function handleClick(e){
     e.preventDefault()
-    fetch("http://localhost:3001/login", {
+    fetch("http://localhost:3000/login", {
       method: "POST",
       headers: {
         "Content-type":"application/json"
@@ -35,7 +36,7 @@ function Login(){
       if (resp.error){
         setErrorMessage(resp.error)
       } else {
-        setUserInfo(resp)
+        dispatch({type: "SET_USER_INFO", payload: resp})
         localStorage.token = resp.token
         history.push('/shops')
       }
@@ -52,19 +53,9 @@ function Login(){
         <Input className="input" label='Password' id="userpassword" value={password} onChange={userPassword} type="password" placeholder="Your password"></Input><br/>
         <Button>Login</Button><br/>
       </Form>
+      <p>Don't have an account? </p><CreateProfile />
     </div>
   )
 }
 
-function setUserInfo(userInfo){
-  return {
-    type: "SET_USER_INFO",
-    payload: userInfo
-  }
-}
-
-let mapDispatch = {
-  setUserInfo
-}
-
-export default connect(null, mapDispatch)(Login)
+export default Login
