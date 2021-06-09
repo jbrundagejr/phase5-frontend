@@ -28,16 +28,20 @@ function userReducer(state = initialStateOfUserReducer, action){
         ...state,
         users: action.payload
       } 
+    case "UPDATE_USER_INFO":
+      return{
+        ...state,
+        username: action.payload.username,
+        email: action.payload.email,
+        profile_pic: action.payload.profile_pic
+      }
     case "LOG_OUT":
       return{
         ...state,
         username: "",
+        id: "",
         token: "",
         users: []
-      }
-    case "DELETE":
-      return{
-      users: state.users.filter(user => user.id !== action.payload)
       }
     default:
       return state

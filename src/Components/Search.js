@@ -7,9 +7,8 @@ function Search(){
   const flavorsArr = useSelector(state => state.flavors.flavors)
   const dispatch = useDispatch()
   
-  function handleSearch(e){
-    const userTyped = setSearchedFlavor(e.target.value)
-    
+  function whatUserTyped(e){
+    setSearchedFlavor(e.target.value)
   }
 
   return (
@@ -20,7 +19,7 @@ function Search(){
           id="search" 
           placeholder="Search by name, type, flavor..." 
           value={searchedFlavor} 
-          onChange={handleSearch}
+          onChange={whatUserTyped}
         ></Input>
         <i class="search icon"></i>
       </div>

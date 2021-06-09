@@ -1,6 +1,6 @@
 import {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {Image, Menu, Segment} from 'semantic-ui-react'
+import {Menu, Segment} from 'semantic-ui-react'
 
 function ShopContainer(){
   const dispatch = useDispatch()

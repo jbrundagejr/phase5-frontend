@@ -3,6 +3,7 @@ import {useParams} from 'react-router-dom'
 import {useSelector} from 'react-redux'
 import {Segment, Dimmer, Loader, Image, Comment, Icon} from 'semantic-ui-react'
 import DeleteAccountModal from './DelectAccountModal'
+import EditAccountModal from './EditAccountModal'
 
 function Profile(){
   const [userInformation, setUserInformation] = useState(null)
@@ -59,8 +60,8 @@ function Profile(){
             {loggedInUser.id === userInformation.id ? <p>Message Feature to be here</p> : null}
           </div>
           <div id="accountEditContainer">
-            {loggedInUser.id === userInformation.id ? <button>Edit Account</button> : null}
-            {loggedInUser.id === userInformation.id ? <DeleteAccountModal id={loggedInUser.id}/> : null}
+            {loggedInUser.id === userInformation.id ? <EditAccountModal /> : null}
+            {loggedInUser.id === userInformation.id ? <DeleteAccountModal /> : null}
           </div>
         </div>
     )

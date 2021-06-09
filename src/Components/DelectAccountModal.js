@@ -1,25 +1,24 @@
 import {Modal, Button} from 'semantic-ui-react'
-import {useDispatch, useSelector} from 'react-redux'
-import {useHistory} from 'react-router-dom'
+import {useDispatch} from 'react-redux'
+import {useHistory, useParams} from 'react-router-dom'
 import {useState} from 'react'
 
 function DeleteAccountModal(){
   const [open, setOpen] = useState(false)
-  const loggedInUser = useSelector(state => state.userInfo)
   const dispatch = useDispatch()
   const history = useHistory()
+  const params = useParams()
 
   function handleDelete(){
-    fetch(`http://localhost:3000/users/${loggedInUser.id}`, {
+    fetch(`http://localhost:3000/users/${params.id}`, {
       method: "DELETE",
       headers: {
         "Authorization": localStorage.token
       }
     })
     .then(res => res.json())
-    .then((deletedUser) => {
-      localStorage.clear()
-      dispatch({type: "DELETE", payload: deletedUser.id})
+    .then(() => {
+      dispatch({type: "LOG_OUT"})
       history.push('/')
     })
   }
