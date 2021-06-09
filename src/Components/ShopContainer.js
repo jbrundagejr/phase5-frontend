@@ -1,24 +1,41 @@
-import {useEffect, useState} from 'react'
-import ShopCard from './ShopCard'
-
+import {useEffect} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import {Image, Menu, Segment} from 'semantic-ui-react'
 
 function ShopContainer(){
-  const [shopArr, setShopArr] = useState([])
-
+  const dispatch = useDispatch()
+  
+  
   useEffect(() => {
     fetch("http://localhost:3000/shops")
       .then(res => res.json())
-      .then(shopData => setShopArr(shopData))
-  }, [])
+      .then(shopData => {
+        dispatch({type: "SET_SHOP_ARR", payload: shopData})
+      })
+  }, [dispatch])
 
-  const cardArr = shopArr.map(shopObj => 
-    <ShopCard key={shopObj.id} shop={shopObj} />
-  )
+  const shopArr = useSelector(state => state.shops.shops)
+
+  const shopsArray = shopArr.map(shopObj => {
+    return (
+      <Menu.Item
+            key={`${shopObj.id}`}
+            name={`${shopObj.name}`}
+            // active={activeItem === `${shopObj.name}`}
+            // onClick={this.handleItemClick}
+          />
+    )
+  })
 
   return(
     <div>
-      <h1>Shops in New York City</h1>
-      {cardArr}
+      <h2>Shops in NYC</h2>
+      <Menu attached='top' tabular>
+        {shopsArray}
+      </Menu>
+      <Segment attached='bottom'>
+        
+      </Segment>
     </div>
   )
 }

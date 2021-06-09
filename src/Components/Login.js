@@ -38,13 +38,13 @@ function Login(){
       } else {
         dispatch({type: "SET_USER_INFO", payload: resp})
         localStorage.token = resp.token
-        history.push('/shops')
+        history.push('/flavors')
       }
     })
   }
 
   return(
-    <div id="loginFormContainer">
+    <div>
       <p className="welcomeBodyFont">Welcome to Ice Cream Social!</p>
       <p className="welcomeBodyFont">Login to get started.</p>
       {errorMessage ? <p>Incorrect email or password.</p> : null}
@@ -53,7 +53,7 @@ function Login(){
         <Input className="input" label='Password' id="userpassword" value={password} onChange={userPassword} type="password" placeholder="Your password"></Input><br/>
         <Button>Login</Button><br/>
       </Form>
-      <p>Don't have an account? </p><CreateProfile />
+      <p>Don't have an account?</p><CreateProfile />
     </div>
   )
 }

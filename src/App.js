@@ -3,6 +3,7 @@ import {Switch, Route} from 'react-router-dom'
 import {useDispatch} from 'react-redux'
 import Header from './Components/Header'
 import Login from './Components/Login'
+import FlavorContainer from './Components/FlavorContainer'
 import ShopContainer from './Components/ShopContainer'
 import UsersContainer from './Components/UsersContainer'
 import Profile from './Components/Profile'
@@ -28,13 +29,15 @@ function App() {
     }
   }, [dispatch])
 
-
   return (
     <div>
       <Header />
       <Switch>
         <Route exact path="/">
           <Login />
+        </Route>
+        <Route exact path="/flavors">
+          <FlavorContainer />
         </Route>
         <Route exact path="/shops">
           <ShopContainer />

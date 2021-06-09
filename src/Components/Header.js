@@ -23,6 +23,7 @@ function Header(){
     <div>
       <h1 onClick={handleHomeClick}>Ice Cream Social</h1>
       <nav>
+        <NavLink to="/flavors">Flavors</NavLink>
         <NavLink to="/shops">Shops</NavLink>
         {userinfo.username ? <NavLink to="/users">Users</NavLink> : null}
         {userinfo.username ? <NavLink to={`/profile/${userinfo.id}`}>{userinfo.username}</NavLink> : null}

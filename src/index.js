@@ -10,7 +10,8 @@ import 'semantic-ui-css/semantic.min.css'
 let initialStateOfUserReducer = {
   username: "",
   id: parseInt(""),
-  token: ""
+  token: "",
+  users: []
 }
 
 function userReducer(state = initialStateOfUserReducer, action){
@@ -22,20 +23,68 @@ function userReducer(state = initialStateOfUserReducer, action){
         id: action.payload.user.id,
         token: action.payload.token
       }
+    case "SET_USER_ARR":
+      return{
+        ...state,
+        users: action.payload
+      } 
     case "LOG_OUT":
       return{
         ...state,
         username: "",
-        token: ""
+        token: "",
+        users: []
+      }
+    case "DELETE":
+      return{
+      users: state.users.filter(user => user.id !== action.payload)
       }
     default:
       return state
   }
 }
 
+let initialStateOfFlavorReducer = {
+  flavors: [],
+}
+
+function flavorReducer(state = initialStateOfFlavorReducer, action){
+  switch(action.type){
+    case "SET_FLAVOR_ARR":
+      return {
+        ...state,
+        flavors: action.payload
+      }
+    // case "SEARCH_FLAVORS":
+    //   return {
+    //     ...state,
+    //     flavors: action.payload
+    //   }
+      default:
+        return state
+  }
+}
+
+let initialStateOfShopReducer = {
+  shops: [],
+}
+
+function shopReducer(state = initialStateOfShopReducer, action){
+  switch(action.type){
+    case "SET_SHOP_ARR":
+      return {
+        ...state,
+        shops: action.payload
+      }
+      default:
+        return state
+  }
+}
+
 let allReducers = {
   userInfo: userReducer,
-  // modalInfo: modalReducer
+  flavors: flavorReducer,
+  shops: shopReducer
 }
 
 let rootReducer = combineReducers(allReducers)
