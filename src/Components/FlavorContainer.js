@@ -1,6 +1,7 @@
 import {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {Card, Image} from 'semantic-ui-react'
+import FlavorModal from './FlavorModal'
 
 function FlavorContainer(){
   const dispatch = useDispatch()
@@ -13,12 +14,13 @@ function FlavorContainer(){
       })
   }, [dispatch])
 
-  const flavorsArr = useSelector(state => state.flavors.flavors)
+  const flavorsArr = useSelector(state => state.flavorReducer.flavors)
 
   const flavorArray = flavorsArr.map(flavorObj => {
     return (
-    <Card key={flavorObj.id}>
-      <Image src={flavorObj.image_url} wrapped ui={false} />
+    <Card key={flavorObj.id} >
+      <FlavorModal />
+      <Image src={flavorObj.image_url} alt={flavorObj.name} wrapped ui={false} />
       <Card.Content>
         <Card.Header>{flavorObj.name}</Card.Header>
         <Card.Meta>

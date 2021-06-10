@@ -1,13 +1,13 @@
 import {Modal, Button, Input, Form} from 'semantic-ui-react'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {useParams} from 'react-router-dom'
 import {useState} from 'react'
 
 function EditAccountModal(){
+  const userinfo = useSelector(state => state.userInfo)
   const [open, setOpen] = useState(false)
-  const [username, setUsername] = useState("")
-  const [userEmail, setUserEmail] = useState("")
-  const [userPassword, setUserPassword] = useState("")
+  const [username, setUsername] = useState(userinfo.username)
+  const [userEmail, setUserEmail] = useState(userinfo.email)
   const [userProfilePic, setUserProfilePic] = useState("")
   const [errorMessage, setErrorMessage] =useState("")
   const dispatch = useDispatch()
@@ -21,10 +21,6 @@ function EditAccountModal(){
     setUserEmail(e.target.value)
   }
 
-  function whatUserPassworded(e){
-    setUserPassword(e.target.value)
-  }
-
   function whatUserProfiledPic(e){
     setUserProfilePic(e.target.value)
   }
@@ -34,7 +30,6 @@ function EditAccountModal(){
     const updatedUser = {
       username: username,
       email: userEmail,
-      password: userPassword,
       profile_img: userProfilePic
     }
     fetch(`http://localhost:3000/users/${params.id}`, {
@@ -49,7 +44,6 @@ function EditAccountModal(){
     .then(resp =>{
       if (resp.error){
         setUserEmail("")
-        setUserPassword("")
         setUserProfilePic("")
         setUsername("")
         setErrorMessage(resp.error)
@@ -72,7 +66,6 @@ function EditAccountModal(){
       {errorMessage ? <p>Invalid input info. Please try again.</p> : null}
         <Form onSubmit={handleUpdate}>
             <Input placeholder="Name" required value={username} onChange={whatUserNamed}/>
-            <Input placeholder="Password" required type="password"  value={userPassword} onChange={whatUserPassworded}/>
             <Input placeholder="Email" required type = "email"  value={userEmail} onChange={whatUserEmailed}/>
             <Input placeholder="Profile Picture" required type="url" value={userProfilePic} onChange={whatUserProfiledPic}/>
           <Button type='submit'>Submit</Button>

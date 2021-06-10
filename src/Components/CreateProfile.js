@@ -55,7 +55,7 @@ function CreateProfile(){
       } else {
         dispatch({type: "SET_USER_INFO", payload: resp})
         localStorage.token = resp.token
-        history.push('/shops')
+        history.push('/flavors')
       }
     })
   }
