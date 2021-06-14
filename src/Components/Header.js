@@ -2,12 +2,12 @@ import {NavLink, useHistory} from 'react-router-dom'
 import {useSelector, useDispatch} from 'react-redux'
 
 function Header(){
-  const userinfo = useSelector(state => state.userInfo)
+  const loggedInUser = useSelector(state => state.userReducer.user)
   const dispatch = useDispatch()
   const history = useHistory()
 
   function handleHomeClick(){
-    if(userinfo.username) {
+    if(loggedInUser.username) {
       history.push('/shops')
     } else {
       history.push("/")
@@ -20,14 +20,16 @@ function Header(){
   }
 
   return(
-    <div>
-      <h1 onClick={handleHomeClick}>Ice Cream Social</h1>
+    <div id="navContainer">
+      <div>
+        <h1 onClick={handleHomeClick}>Ice Cream Social</h1>
+      </div>
       <nav>
         <NavLink to="/flavors">Flavors</NavLink>
         <NavLink to="/shops">Shops</NavLink>
-        {userinfo.username ? <NavLink to="/users">Users</NavLink> : null}
-        {userinfo.username ? <NavLink to={`/profile/${userinfo.id}`}>{userinfo.username}</NavLink> : null}
-        {userinfo.username ? <NavLink onClick={handleLogout} to="/">Logout</NavLink> : <NavLink to="/">Login</NavLink>}
+        {loggedInUser.username ? <NavLink to="/users">Users</NavLink> : null}
+        {loggedInUser.username ? <NavLink to={`/profile/${loggedInUser.id}`}>{loggedInUser.username}</NavLink> : null}
+        {loggedInUser.username ? <NavLink onClick={handleLogout} to="/">Logout</NavLink> : <NavLink to="/">Login</NavLink>}
       </nav>
     </div>
   )

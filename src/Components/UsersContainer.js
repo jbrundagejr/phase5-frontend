@@ -14,7 +14,7 @@ function UserContainer(){
       })
   }, [dispatch])
 
-  const usersArr = useSelector(state => state.userInfo.users)
+  const usersArr = useSelector(state => state.userReducer.users)
 
   const userArray = usersArr.map(userObj => {
     return (

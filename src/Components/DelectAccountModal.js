@@ -18,21 +18,22 @@ function DeleteAccountModal(){
     })
     .then(res => res.json())
     .then(() => {
-      dispatch({type: "LOG_OUT"})
       history.push('/')
+      dispatch({type: "LOG_OUT"})
     })
   }
 
   return (
     <div>
-      <Modal onClose={() => setOpen(false)}
-             onOpen={() => setOpen(true)}
-             open={open} 
-             trigger={<Button className="ui small button">Delete Account</Button>}
+      <Modal 
+        onClose={() => setOpen(false)}
+        onOpen={() => setOpen(true)}
+        open={open} 
+        trigger={<Button className="ui small button">Delete Account</Button>}
       >
         <Modal.Header>Delete Your Account</Modal.Header>
         <Modal.Content>
-          <p>Are you sure you want to delete your account</p>
+          <p>Are you sure you want to delete your account? We'd hate to see you go!</p>
         </Modal.Content>
         <Modal.Actions>
           <Button negative onClick={() => setOpen(false)}>

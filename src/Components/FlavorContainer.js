@@ -1,7 +1,8 @@
 import {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {Card, Image} from 'semantic-ui-react'
-import FlavorModal from './FlavorModal'
+import {Link} from 'react-router-dom'
+import Search from './Search'
 
 function FlavorContainer(){
   const dispatch = useDispatch()
@@ -18,24 +19,28 @@ function FlavorContainer(){
 
   const flavorArray = flavorsArr.map(flavorObj => {
     return (
-    <Card key={flavorObj.id} >
-      <FlavorModal />
-      <Image src={flavorObj.image_url} alt={flavorObj.name} wrapped ui={false} />
-      <Card.Content>
-        <Card.Header>{flavorObj.name}</Card.Header>
-        <Card.Meta>
-          <a href={flavorObj.shop.website} target="_blank" rel="noreferrer">{flavorObj.shop.name}</a>
-        </Card.Meta>
-      </Card.Content>
-    </Card>
+      <Card key={flavorObj.id} color="violet">
+        <Link to={`/flavors/${flavorObj.id}`}>
+          <Image src={flavorObj.image_url} alt={flavorObj.name}></Image>
+        </Link>
+        <Card.Content>
+          <Card.Header>{flavorObj.name}</Card.Header>
+          <Card.Meta>
+            <a href={flavorObj.shop.website} target="_blank" rel="noreferrer">{flavorObj.shop.name}</a>
+          </Card.Meta>
+        </Card.Content>
+      </Card>
     )
   })
 
   return(
-    <div>
-      <h2>Flavors</h2>
-      <div className="ui link four cards">
-      {flavorArray}
+    <div id="flavorContainer">
+      <div id="flavorContainerHeader">
+        <h2>Flavors</h2>
+        <Search />
+      </div>
+      <div class="ui link four cards" id="card-collection">
+        {flavorArray}
       </div>
     </div>
   )

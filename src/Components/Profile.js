@@ -1,24 +1,26 @@
 import {useState, useEffect} from 'react'
 import {useParams} from 'react-router-dom'
-import {useSelector} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux'
 import {Segment, Dimmer, Loader, Image, Comment, Icon} from 'semantic-ui-react'
 import DeleteAccountModal from './DelectAccountModal'
 import EditAccountModal from './EditAccountModal'
 
 function Profile(){
-  const [userInformation, setUserInformation] = useState(null)
   const [isLoaded, setIsLoaded] = useState(false)
-  const loggedInUser = useSelector(state => state.userInfo)
+  const loggedInUser = useSelector(state => state.userReducer.user)
   const params = useParams()
+  const dispatch = useDispatch()
 
   useEffect (() => {
     fetch(`http://localhost:3000/users/${params.id}`)
       .then(res => res.json())
       .then(userData => {
-        setUserInformation(userData)
+        dispatch({type: "SET_PROFILE_USER", payload: userData})
         setIsLoaded(true)
       })
   }, [params.id])
+
+  const userInformation = useSelector(state => state.userReducer.profileUser)
 
     if (!isLoaded) {
       return (
@@ -39,7 +41,7 @@ function Profile(){
             <Comment.Text>
               {reviewObj.content}
               My Rating: {reviewObj.rating}
-              {loggedInUser.id === userInformation.id ? 
+              {loggedInUser.username === userInformation.username ? 
                 <Icon name="trash alternate" ></Icon> : null}
             </Comment.Text>
           </Comment.Content>
@@ -52,16 +54,16 @@ function Profile(){
           <h2>{userInformation.username}'s Profile</h2>
           <div id="profileContainer">
             <img src={userInformation.profile_img} alt={userInformation.name}></img>
-            {loggedInUser.id === userInformation.id ? <p>Email: {userInformation.email}</p> : null}
+            {loggedInUser.username === userInformation.username ? <p>Email: {userInformation.email}</p> : null}
             <h3>Flavors Reviewed:</h3>
             {reviewArr}
           </div>
-          <div id="messageContainer">
-            {loggedInUser.id === userInformation.id ? <p>Message Feature to be here</p> : null}
-          </div>
+          {/* <div id="messageContainer">
+            {loggedInUser.username === userInformation.username ? <p>Message Feature to be here</p> : null}
+          </div> */}
           <div id="accountEditContainer">
-            {loggedInUser.id === userInformation.id ? <EditAccountModal /> : null}
-            {loggedInUser.id === userInformation.id ? <DeleteAccountModal /> : null}
+            {loggedInUser.username === userInformation.username ? <EditAccountModal /> : null}
+            {loggedInUser.username === userInformation.username ? <DeleteAccountModal /> : null}
           </div>
         </div>
     )

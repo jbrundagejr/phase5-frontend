@@ -1,16 +1,17 @@
 import {Modal, Button, Input, Form} from 'semantic-ui-react'
 import {useDispatch, useSelector} from 'react-redux'
-import {useParams} from 'react-router-dom'
+import {useParams, useHistory} from 'react-router-dom'
 import {useState} from 'react'
 
 function EditAccountModal(){
-  const userinfo = useSelector(state => state.userInfo)
+  const userinfo = useSelector(state => state.userReducer.user)
   const [open, setOpen] = useState(false)
   const [username, setUsername] = useState(userinfo.username)
   const [userEmail, setUserEmail] = useState(userinfo.email)
   const [userProfilePic, setUserProfilePic] = useState("")
   const [errorMessage, setErrorMessage] =useState("")
   const dispatch = useDispatch()
+  const history = useHistory()
   const params = useParams()
 
   function whatUserNamed(e){
@@ -49,25 +50,27 @@ function EditAccountModal(){
         setErrorMessage(resp.error)
       } else {
         dispatch({type: "UPDATE_USER_INFO", payload: resp})
+        dispatch({type: "SET_PROFILE_USER", payload: resp})
+        history.push(`/profile/${params.id}`)
         setOpen(false)
       }
     })
   }
   return(
     <div>
-         <Modal
-    onClose={() => setOpen(false)}
-    onOpen={() => setOpen(true)}
-    open={open}
-    trigger={<Button className="ui small button">Edit Account</Button>}
-    className="modal"
-    >
+      <Modal
+        onClose={() => setOpen(false)}
+        onOpen={() => setOpen(true)}
+        open={open}
+        trigger={<Button className="ui small button">Edit Account</Button>}
+        className="modal"
+      >
       <Modal.Header>Edit Account</Modal.Header>
-      {errorMessage ? <p>Invalid input info. Please try again.</p> : null}
+      {errorMessage ? <p>Hmm that didn't work. Please try again.</p> : null}
         <Form onSubmit={handleUpdate}>
-            <Input placeholder="Name" required value={username} onChange={whatUserNamed}/>
-            <Input placeholder="Email" required type = "email"  value={userEmail} onChange={whatUserEmailed}/>
-            <Input placeholder="Profile Picture" required type="url" value={userProfilePic} onChange={whatUserProfiledPic}/>
+          <Input placeholder="Name" required value={username} onChange={whatUserNamed}/>
+          <Input placeholder="Email" required type = "email"  value={userEmail} onChange={whatUserEmailed}/>
+          <Input placeholder="Profile Picture" required type="url" value={userProfilePic} onChange={whatUserProfiledPic}/>
           <Button type='submit'>Submit</Button>
         </Form>
       </Modal>

@@ -7,6 +7,7 @@ import FlavorContainer from './Components/FlavorContainer'
 import ShopContainer from './Components/ShopContainer'
 import UsersContainer from './Components/UsersContainer'
 import Profile from './Components/Profile'
+import FlavorModal from './Components/FlavorModal'
 
 function App() {
 
@@ -38,6 +39,9 @@ function App() {
         </Route>
         <Route exact path="/flavors">
           <FlavorContainer />
+        </Route>
+        <Route exact path="/flavors/:id">
+          <FlavorModal />
         </Route>
         <Route exact path="/shops">
           <ShopContainer />

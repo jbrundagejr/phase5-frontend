@@ -1,110 +1,121 @@
 import {Modal, Icon, Image, Header, Segment, Dimmer, Loader, Comment} from 'semantic-ui-react'
 import {useSelector, useDispatch} from 'react-redux'
 import {useEffect, useState} from 'react'
-import ReviewForm from './ReviewForm'
+import FlavorReviewForm from './FlavorReviewForm'
+import {useParams, useHistory, Link} from 'react-router-dom'
 
-function FlavorModal(props){
-  const loggedInUser = useSelector(state => state.userInfo)
+function FlavorModal(){
+  const loggedInUser = useSelector(state => state.userReducer.user)
   const [isLoaded, setIsLoaded] = useState(false)
   const dimmer = useSelector(state => state.modal.dimmer)
   const open = useSelector(state => state.modal.open)
+  const params = useParams()
+  const history = useHistory()
   const dispatch = useDispatch()
-  const flavorID = useSelector((state) => state.flavorReducer.flavors[props.id])
-  
-  // export const TodoListItem = (props) => {
-  //   const todo = useSelector((state) => state.todos[props.id])
-  //   return <div>{todo.text}</div>
-  // }
-  
-  console.log(flavorID)
   
   useEffect(() => {
-    fetch(`http://localhost:3000/flavors/${flavorID}`)
+    fetch(`http://localhost:3000/flavors/${params.id}`)
       .then(res => res.json())
       .then(flavorData => {
         dispatch({type: "SET_FLAVOR_DATA", payload: flavorData})
         setIsLoaded(true)
       })
-  }, [flavorID, dispatch])
+  }, [params.id])
 
   const flavorInfo = useSelector(state => state.flavorReducer.flavor)
 
   if (!isLoaded) {
     return (
-    <Segment>
-      <Dimmer active>
-        <Loader />
-      </Dimmer>
-      <Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' alt="Loading..." />
-    </Segment>)
+      <Segment>
+        <Dimmer active>
+          <Loader />
+        </Dimmer>
+        <Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' alt="Loading..." />
+      </Segment>)
   } else {
 
-  // function handleReviewDelete(flavorInfo.flavor_reviews.id){
-  //   fetch(`https://localhost:3000/flavor_reviews/${flavorInfo.flavor_reviews.id}`, {
-  //     method: "DELETE",
-  //     headers: {
-  //       "Authorization": localStorage.token,
-  //     }
-  //   })
-  //   .then(res => res.json())
-  //   .then((deletedReview) => {
-  //        const newFlavorReviewArr = {flavorInfo.flavor_reviews}.filter(review => {
-  //          return review.id !== deletedReview.id
-  //        })
-  //     dispatch({type: "DELETE_FLAVOR_REVIEW", payload: newFlavorReviewArr})
-  //   })
-  // }
+  function handleReviewDelete(id){
+    fetch(`http://localhost:3000/flavor_reviews/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Authorization": localStorage.token,
+      }
+    })
+    .then(res => res.json())
+    .then((deletedReview) => {
+         const newFlavorReviewArr = flavorInfo.flavor_reviews.filter(review => {
+           return review.id !== deletedReview.id
+         })
+      dispatch({type: "DELETE_FLAVOR_REVIEW", payload: newFlavorReviewArr})
+    })
+  }
 
-    // const flavorReviewArr = flavorInfo.flavor_reviews.map(flavorReviewObj => {
-    //   return (
-    //     <Comment>
-    //       <Comment.Avatar src={flavorReviewObj.user.profile_img} alt={flavorReviewObj.user.username} />
-    //       <Comment.Content>
-    //         <Comment.Author>{flavorReviewObj.user.username}</Comment.Author>
-    //         <Comment.Text>
-    //           {flavorReviewObj.content}
-    //         </Comment.Text>
-    //         <Comment.Text>
-    //           Rating: {flavorReviewObj.rating}
-    //         </Comment.Text>
-    //         <Comment.Actions>
-    //           {loggedInUser.username ? <Comment.Action>Message {flavorReviewObj.user.username}
-    //              </Comment.Action> : null }
-    //           {/* {loggedInUser.username ? <Comment.Action><Icon name='trash alternate' onClick={handleReviewDelete}/></Comment.Action> : null} */}
-    //         </Comment.Actions>
-    //       </Comment.Content>
-    //     </Comment>
-    //   )
-    // })
+    const flavorReviewArr = flavorInfo.flavor_reviews.map(flavorReviewObj => {
+      return (
+        <Comment>
+          <Comment.Avatar src={flavorReviewObj.user.profile_img} alt={flavorReviewObj.user.username} />
+          <Comment.Content>
+            <Link to={`/profile/${flavorReviewObj.user.id}`}>
+              <Comment.Author>
+                {flavorReviewObj.user.username}
+              </Comment.Author>
+            </Link>
+            <Comment.Text>
+              {flavorReviewObj.content}
+            </Comment.Text>
+            <Comment.Text>
+              Rating: {flavorReviewObj.rating}
+            </Comment.Text>
+            <Comment.Actions>
+              {/* {loggedInUser.username && loggedInUser.username !== flavorReviewObj.user.username ? 
+                <Comment.Action>
+                  Message {flavorReviewObj.user.username}
+                </Comment.Action> : null } */}
+              {loggedInUser.username === flavorReviewObj.user.username? <Comment.Action><Icon name='trash alternate' onClick={handleReviewDelete(flavorReviewObj.id)}/></Comment.Action> : null}
+            </Comment.Actions>
+          </Comment.Content>
+        </Comment>
+      )
+    })
    
 
     return (
       <div>
-        <Image src={flavorInfo.image_url} alt={flavorInfo.name}
-        onClick={() => dispatch({ type: 'OPEN_MODAL', dimmer: 'blurring' })}
+        <Image 
+          size='huge' centered rounded 
+          src={flavorInfo.image_url} 
+          alt={flavorInfo.name}
+          onClick={() => dispatch({ type: 'OPEN_MODAL', dimmer: 'blurring' })}
         />  
         <Modal
           dimmer={dimmer}
           open={open}
-          onClose={() => dispatch({ type: 'CLOSE_MODAL' })}>
-          <Modal.Header>{flavorInfo.name}</Modal.Header>
+          key={flavorInfo.id}
+          >
+          <Modal.Header>
+            <div id="modalHeader">
+              <h3>{flavorInfo.name}</h3> 
+              <Icon name='arrow alternate circle left' onClick={() => history.push('/flavors')}/>
+            </div>
+          </Modal.Header>
           <Modal.Content image>
             <Image size='medium' src={flavorInfo.image_url} 
               alt={flavorInfo.name} wrapped />
             <Modal.Description>
-              <Header>Description:</Header>
+              <Header>What this flavor is about...</Header>
               <p>{flavorInfo.description}</p>
-              <p>From: <a href={flavorInfo.shop.website} target="_blank" rel="noreferrer">{flavorInfo.shop.name}</a></p>
-              <p>Average Rating: {flavorInfo.aver}</p>
-              <Header>Reviews:</Header>
+              <p>Made at <a href={flavorInfo.shop.website} target="_blank" rel="noreferrer">{flavorInfo.shop.name}</a></p>
+              <p>Average Rating: {flavorInfo.average_rating}</p>
+              {flavorReviewArr.length > 0 ? <h3>Reviews:</h3> : <h3>We need someone to review this bad boy!</h3>}
               <Comment.Group>
-                {/* {flavorReviewArr} */}
+                {flavorReviewArr}
               </Comment.Group>
             </Modal.Description>
           </Modal.Content>
-          <Modal.Actions>
-            {loggedInUser.username ? <ReviewForm /> : null}
-          </Modal.Actions>
+          {loggedInUser.username ? 
+            <Modal.Actions>
+              <FlavorReviewForm />
+            </Modal.Actions> : null }
         </Modal>
       </div>
     )

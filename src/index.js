@@ -1,17 +1,16 @@
 import React from 'react'
 import ReactDOM from 'react-dom';
+import 'semantic-ui-css/semantic.min.css'
 import './index.css';
 import App from './App';
 import {createStore, combineReducers} from 'redux'
 import {BrowserRouter} from 'react-router-dom'
 import {Provider} from 'react-redux'
-import 'semantic-ui-css/semantic.min.css'
 
 let initialStateOfUserReducer = {
-  username: "",
-  id: parseInt(""),
-  email: "",
+  user: {},
   token: "",
+  profileUser: {},
   users: []
 }
 
@@ -20,9 +19,7 @@ function userReducer(state = initialStateOfUserReducer, action){
     case "SET_USER_INFO":
       return{
         ...state,
-        username: action.payload.user.username,
-        id: action.payload.user.id,
-        email: action.payload.user.email,
+        user: action.payload.user,
         token: action.payload.token
       }
     case "SET_USER_ARR":
@@ -30,17 +27,21 @@ function userReducer(state = initialStateOfUserReducer, action){
         ...state,
         users: action.payload
       } 
+    case "SET_PROFILE_USER":
+      return {
+        ...state,
+        profileUser: action.payload
+      }
     case "UPDATE_USER_INFO":
       return{
         ...state,
-        username: action.payload.username,
-        email: action.payload.email
+        user: action.payload.user
       }
     case "LOG_OUT":
       return{
         ...state,
-        username: "",
-        id: "",
+        user: {},
+        otherUser: {},
         token: "",
         users: []
       }
@@ -66,15 +67,15 @@ function flavorReducer(state = initialStateOfFlavorReducer, action){
         ...state,
         flavor: action.payload
       }
-    // case "SEARCH_FLAVORS":
-    //   return {
-    //     ...state,
-    //     flavors: action.payload
-    //   }
+    case "SEARCH_FLAVORS":
+      return {
+        ...state,
+        flavors: action.payload
+      }
     case "ADD_FLAVOR_REVIEW":
       return {
         ...state,
-        flavor_reviews: [...state.flavor_reviews, action.payload]
+        flavor: action.payload
       }
       case "DELETE_FLAVOR_REVIEW":
         return {
@@ -87,7 +88,7 @@ function flavorReducer(state = initialStateOfFlavorReducer, action){
 }
 
 let initialStateOfShopReducer = {
-  shops: [],
+  shops: []
 }
 
 function shopReducer(state = initialStateOfShopReducer, action){
@@ -103,8 +104,8 @@ function shopReducer(state = initialStateOfShopReducer, action){
 }
 
 let initialStateOfModalReducer = {
-  open: false,
-  dimmer: ""
+  open: true,
+  dimmer: "blurring"
 }
 
 function modalReducer(state = initialStateOfModalReducer, action) {
@@ -127,7 +128,7 @@ function modalReducer(state = initialStateOfModalReducer, action) {
 
 let allReducers = {
   flavorReducer,
-  userInfo: userReducer,
+  userReducer,
   shops: shopReducer,
   modal: modalReducer,
 }
