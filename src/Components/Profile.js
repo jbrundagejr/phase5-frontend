@@ -16,11 +16,13 @@ function Profile(){
       .then(res => res.json())
       .then(userData => {
         dispatch({type: "SET_PROFILE_USER", payload: userData})
+        dispatch({type: "SET_FLAVOR_REVIEWS", payload: userData.flavor_reviews})
         setIsLoaded(true)
       })
-  }, [params.id])
+  }, [dispatch, params.id])
 
   const userInformation = useSelector(state => state.userReducer.profileUser)
+  const userReviewArr= useSelector(state => state.flavorReducer.flavor_reviews)
 
     if (!isLoaded) {
       return (
@@ -32,18 +34,38 @@ function Profile(){
       </Segment>)
     } else {
 
-      const reviewArr = userInformation.flavor_reviews.map(reviewObj => {
+      function handleReviewDelete(id){
+        fetch(`http://localhost:3000/flavor_reviews/${id}`, {
+          method: "DELETE",
+          headers: {
+            "Authorization": localStorage.token,
+          }
+        })
+        .then(res => res.json())
+        .then((deletedReview) => {
+             const newFlavorReviewArr = userReviewArr.filter(review => {
+               return review.id !== deletedReview.id
+             })
+          dispatch({type: "DELETE_FLAVOR_REVIEW", payload: newFlavorReviewArr})
+        })
+      }
+
+      const reviewArr = userReviewArr.map(reviewObj => {
         return (
           <Comment key={reviewObj.id}>
           <Image src={reviewObj.flavor.image_url} alt={reviewObj.flavor.name} size="small"></Image>
           <Comment.Content>
-          <Comment.Author>{reviewObj.flavor.name} from </Comment.Author>
+          <Comment.Author>{reviewObj.flavor.name}</Comment.Author>
             <Comment.Text>
               {reviewObj.content}
               My Rating: {reviewObj.rating}
-              {loggedInUser.username === userInformation.username ? 
-                <Icon name="trash alternate" ></Icon> : null}
             </Comment.Text>
+            <Comment.Actions>
+              {loggedInUser.username === userInformation.username ? 
+                <Comment.Action>
+                  <Icon onClick={() => handleReviewDelete(reviewObj.id)} name="trash alternate" />
+                </Comment.Action> : null}
+            </Comment.Actions>
           </Comment.Content>
         </Comment>
         )

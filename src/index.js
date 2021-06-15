@@ -52,6 +52,7 @@ function userReducer(state = initialStateOfUserReducer, action){
 
 let initialStateOfFlavorReducer = {
   flavors: [],
+  flavor_reviews: [],
   flavor: {}
 }
 
@@ -67,6 +68,11 @@ function flavorReducer(state = initialStateOfFlavorReducer, action){
         ...state,
         flavor: action.payload
       }
+    case "SET_FLAVOR_REVIEWS":
+      return {
+        ...state,
+        flavor_reviews: action.payload
+      }
     case "SEARCH_FLAVORS":
       return {
         ...state,
@@ -75,7 +81,7 @@ function flavorReducer(state = initialStateOfFlavorReducer, action){
     case "ADD_FLAVOR_REVIEW":
       return {
         ...state,
-        flavor: action.payload
+        flavor_reviews: action.payload
       }
       case "DELETE_FLAVOR_REVIEW":
         return {
@@ -88,7 +94,9 @@ function flavorReducer(state = initialStateOfFlavorReducer, action){
 }
 
 let initialStateOfShopReducer = {
-  shops: []
+  shops: [],
+  shop: {},
+  shop_reviews: []
 }
 
 function shopReducer(state = initialStateOfShopReducer, action){
@@ -97,6 +105,16 @@ function shopReducer(state = initialStateOfShopReducer, action){
       return {
         ...state,
         shops: action.payload
+      }
+    case "SET_SHOP_REVIEWS":
+      return {
+        ...state,
+        shop_reviews: action.payload
+      }
+    case "SET_SELECTED_SHOP":
+      return {
+        ...state,
+        shop: action.payload
       }
       default:
         return state
@@ -129,7 +147,7 @@ function modalReducer(state = initialStateOfModalReducer, action) {
 let allReducers = {
   flavorReducer,
   userReducer,
-  shops: shopReducer,
+  shopReducer,
   modal: modalReducer,
 }
 

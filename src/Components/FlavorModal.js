@@ -18,11 +18,13 @@ function FlavorModal(){
       .then(res => res.json())
       .then(flavorData => {
         dispatch({type: "SET_FLAVOR_DATA", payload: flavorData})
+        dispatch({type: "SET_FLAVOR_REVIEWS", payload: flavorData.flavor_reviews})
         setIsLoaded(true)
       })
-  }, [params.id])
+  }, [dispatch, params.id])
 
   const flavorInfo = useSelector(state => state.flavorReducer.flavor)
+  const flavorReviewInfo = useSelector(state => state.flavorReducer.flavor_reviews)
 
   if (!isLoaded) {
     return (
@@ -43,42 +45,45 @@ function FlavorModal(){
     })
     .then(res => res.json())
     .then((deletedReview) => {
-         const newFlavorReviewArr = flavorInfo.flavor_reviews.filter(review => {
-           return review.id !== deletedReview.id
-         })
+      const newFlavorReviewArr = flavorReviewInfo.filter(review => {
+        return review.id !== deletedReview.id
+      })
       dispatch({type: "DELETE_FLAVOR_REVIEW", payload: newFlavorReviewArr})
     })
-  }
+  } 
+    
+  const flavorReviewArr = flavorReviewInfo.map(flavorReviewObj => {
+    return (
+      <Comment>
+        <Comment.Avatar src={flavorReviewObj.user.profile_img} alt={flavorReviewObj.user.username} />
+        <Comment.Content>
+          <Link to={`/profile/${flavorReviewObj.user.id}`}>
+            <Comment.Author>
+              {flavorReviewObj.user.username}
+            </Comment.Author>
+          </Link>
+          <Comment.Text>
+            {flavorReviewObj.content}
+          </Comment.Text>
+          <Comment.Text>
+            Rating: {flavorReviewObj.rating}
+          </Comment.Text>
+          <Comment.Actions>
+            {/* {loggedInUser.username && loggedInUser.username !== flavorReviewObj.user.username ? 
+              <Comment.Action>
+                Message {flavorReviewObj.user.username}
+              </Comment.Action> : null } */}
+            {loggedInUser.username === flavorReviewObj.user.username ? 
+              <Comment.Action>
+                <Icon name='trash alternate' onClick={() => handleReviewDelete(flavorReviewObj.id)}/>
+              </Comment.Action> : null}
+          </Comment.Actions>
+        </Comment.Content>
+      </Comment>
+    )
 
-    const flavorReviewArr = flavorInfo.flavor_reviews.map(flavorReviewObj => {
-      return (
-        <Comment>
-          <Comment.Avatar src={flavorReviewObj.user.profile_img} alt={flavorReviewObj.user.username} />
-          <Comment.Content>
-            <Link to={`/profile/${flavorReviewObj.user.id}`}>
-              <Comment.Author>
-                {flavorReviewObj.user.username}
-              </Comment.Author>
-            </Link>
-            <Comment.Text>
-              {flavorReviewObj.content}
-            </Comment.Text>
-            <Comment.Text>
-              Rating: {flavorReviewObj.rating}
-            </Comment.Text>
-            <Comment.Actions>
-              {/* {loggedInUser.username && loggedInUser.username !== flavorReviewObj.user.username ? 
-                <Comment.Action>
-                  Message {flavorReviewObj.user.username}
-                </Comment.Action> : null } */}
-              {loggedInUser.username === flavorReviewObj.user.username? <Comment.Action><Icon name='trash alternate' onClick={handleReviewDelete(flavorReviewObj.id)}/></Comment.Action> : null}
-            </Comment.Actions>
-          </Comment.Content>
-        </Comment>
-      )
     })
-   
-
+  
     return (
       <div>
         <Image 
@@ -121,5 +126,6 @@ function FlavorModal(){
     )
   }
 }
+
 
 export default FlavorModal

@@ -1,17 +1,16 @@
 import {Modal, Button, Input, Form} from 'semantic-ui-react'
 import {useDispatch, useSelector} from 'react-redux'
-import {useParams, useHistory} from 'react-router-dom'
+import {useParams} from 'react-router-dom'
 import {useState} from 'react'
 
 function EditAccountModal(){
   const userinfo = useSelector(state => state.userReducer.user)
   const [open, setOpen] = useState(false)
-  const [username, setUsername] = useState(userinfo.username)
-  const [userEmail, setUserEmail] = useState(userinfo.email)
+  const [username, setUsername] = useState("")
+  const [userEmail, setUserEmail] = useState("")
   const [userProfilePic, setUserProfilePic] = useState("")
   const [errorMessage, setErrorMessage] =useState("")
   const dispatch = useDispatch()
-  const history = useHistory()
   const params = useParams()
 
   function whatUserNamed(e){
@@ -43,16 +42,16 @@ function EditAccountModal(){
     })
     .then(res => res.json())
     .then(resp =>{
+      console.log(resp)
       if (resp.error){
         setUserEmail("")
         setUserProfilePic("")
         setUsername("")
         setErrorMessage(resp.error)
       } else {
-        dispatch({type: "UPDATE_USER_INFO", payload: resp})
-        dispatch({type: "SET_PROFILE_USER", payload: resp})
-        history.push(`/profile/${params.id}`)
         setOpen(false)
+        dispatch({type: "UPDATE_USER_INFO", payload: resp})
+        dispatch({type: "SET_PROFILE_USER", payload: resp.user})
       }
     })
   }
@@ -68,9 +67,12 @@ function EditAccountModal(){
       <Modal.Header>Edit Account</Modal.Header>
       {errorMessage ? <p>Hmm that didn't work. Please try again.</p> : null}
         <Form onSubmit={handleUpdate}>
-          <Input placeholder="Name" required value={username} onChange={whatUserNamed}/>
-          <Input placeholder="Email" required type = "email"  value={userEmail} onChange={whatUserEmailed}/>
-          <Input placeholder="Profile Picture" required type="url" value={userProfilePic} onChange={whatUserProfiledPic}/>
+          <label htmlFor="username" className="label">New Username</label>
+          <Input id="username" placeholder={userinfo.username} required value={username} onChange={whatUserNamed}/>
+          <label htmlFor="email" className="label">New Email Address</label>
+          <Input id="email" placeholder={userinfo.email} required type = "email"  value={userEmail} onChange={whatUserEmailed}/>
+          <label htmlFor="profile_img" className="label">New Profile Picture</label>
+          <Input id="profile_img" placeholder={userinfo.profile_img} required type="url" value={userProfilePic} onChange={whatUserProfiledPic}/>
           <Button type='submit'>Submit</Button>
         </Form>
       </Modal>

@@ -14,7 +14,7 @@ h3 {
   font-size: 1.5em;
 }
 
-a {
+.headerLink {
   font-size: 1em;
   padding-left: 5px;
   padding-right: 5px;
@@ -22,6 +22,7 @@ a {
 
 #navContainer {
   display: flex;
+  background-color: white;
   align-items: center;
   justify-content: space-around;
   height: 7em;

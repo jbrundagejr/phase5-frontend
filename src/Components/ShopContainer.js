@@ -1,10 +1,11 @@
 import {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {Menu, Segment} from 'semantic-ui-react'
+import {Menu, Segment, Card, Image, Icon, Comment} from 'semantic-ui-react'
+import ShopMap from './ShopMap'
+import {Link} from 'react-router-dom'
 
 function ShopContainer(){
   const dispatch = useDispatch()
-  
   
   useEffect(() => {
     fetch("http://localhost:3000/shops")
@@ -13,8 +14,9 @@ function ShopContainer(){
         dispatch({type: "SET_SHOP_ARR", payload: shopData})
       })
   }, [dispatch])
-
-  const shopArr = useSelector(state => state.shops.shops)
+  
+  const loggedInUser = useSelector(state => state.userReducer.user)
+  const shopArr = useSelector(state => state.shopReducer.shops)
 
   const shopsArray = shopArr.map(shopObj => {
     return (
@@ -22,10 +24,13 @@ function ShopContainer(){
             key={`${shopObj.id}`}
             name={`${shopObj.name}`}
             // active={activeItem === `${shopObj.name}`}
-            // onClick={this.handleItemClick}
+            onClick={() => dispatch({type: "SET_SELECTED_SHOP", payload: shopObj})}
           />
     )
   })
+
+  const shopInfo = useSelector(state => state.shopReducer.shop)
+
 
   return(
     <div>
@@ -34,7 +39,13 @@ function ShopContainer(){
         {shopsArray}
       </Menu>
       <Segment attached='bottom'>
-        
+        <Card>
+          <Image src={shopInfo.image_url} alt={shopInfo.name} wrapped ui={false} />
+          <Card.Content>
+            <Card.Header>{shopInfo.name}</Card.Header>
+          </Card.Content>
+        </Card>
+        <ShopMap />
       </Segment>
     </div>
   )
