@@ -42,7 +42,6 @@ function EditAccountModal(){
     })
     .then(res => res.json())
     .then(resp =>{
-      console.log(resp)
       if (resp.error){
         setUserEmail("")
         setUserProfilePic("")

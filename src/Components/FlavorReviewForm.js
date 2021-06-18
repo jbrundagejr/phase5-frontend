@@ -6,7 +6,7 @@ function FlavorReviewForm(){
   const [userContent, setUserContent] = useState("")
   const [userRating, setUserRating] = useState("")
   const flavorInfo = useSelector(state => state.flavorReducer.flavor)
-  const flavorReviewInfo = useSelector(state => state.flavorReducer.flavor.flavor_reviews)
+  const flavorReviewInfo = useSelector(state => state.flavorReducer.flavor_reviews)
   const dispatch = useDispatch()
 
   function rateFlavor(e, {rating, maxRating}){
@@ -32,6 +32,7 @@ function FlavorReviewForm(){
     .then(newReview => {
       const newFlavorReviewArr = [...flavorReviewInfo, newReview]
       dispatch({type: "ADD_FLAVOR_REVIEW", payload: newFlavorReviewArr})
+      setUserContent("")
     })
   }
   

@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import {Input, Icon} from 'semantic-ui-react'
+import {Input} from 'semantic-ui-react'
 import {useDispatch, useSelector} from 'react-redux'
 
 function Search(){
@@ -30,7 +30,6 @@ function Search(){
           onChange={whatUserTyped}
           // onChange={() => dispatch({type: "SEARCH_FLAVORS", payload: filteredFlavorArray})}
         ></Input>
-        {/* <Icon name="search icon"></Icon> */}
       </div>
     </div>
   )

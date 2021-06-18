@@ -11,7 +11,9 @@ let initialStateOfUserReducer = {
   user: {},
   token: "",
   profileUser: {},
-  users: []
+  users: [],
+  sent_conversations: [],
+  received_conversations: []
 }
 
 function userReducer(state = initialStateOfUserReducer, action){
@@ -111,10 +113,20 @@ function shopReducer(state = initialStateOfShopReducer, action){
         ...state,
         shop_reviews: action.payload
       }
-    case "SET_SELECTED_SHOP":
+    case "SET_SHOP_DATA":
       return {
         ...state,
         shop: action.payload
+      }
+    case "ADD_SHOP_REVIEW":
+      return {
+        ...state,
+        shop_reviews: action.payload
+      }
+    case "DELETE_SHOP_REVIEW":
+      return {
+        ...state,
+        shop_reviews: action.payload
       }
       default:
         return state

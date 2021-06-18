@@ -43,3 +43,16 @@ h3 {
   display: flex;
   justify-content: space-between;
 }
+
+#mainShopContainer {
+  margin: 0 20%;
+}
+
+#shopInfoContainer {
+  display: flex;
+  background-color: rgb(12, 226, 226);
+}
+
+div.content:hover {
+  cursor: default;
+}

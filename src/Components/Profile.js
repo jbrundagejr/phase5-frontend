@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react'
 import {useParams} from 'react-router-dom'
 import {useSelector, useDispatch} from 'react-redux'
 import {Segment, Dimmer, Loader, Image, Comment, Icon} from 'semantic-ui-react'
-import DeleteAccountModal from './DelectAccountModal'
+import DeleteAccountModal from './DeleteAccountModal'
 import EditAccountModal from './EditAccountModal'
 
 function Profile(){
@@ -61,7 +61,7 @@ function Profile(){
               My Rating: {reviewObj.rating}
             </Comment.Text>
             <Comment.Actions>
-              {loggedInUser.username === userInformation.username ? 
+              {loggedInUser.id === userInformation.id ? 
                 <Comment.Action>
                   <Icon onClick={() => handleReviewDelete(reviewObj.id)} name="trash alternate" />
                 </Comment.Action> : null}
@@ -76,7 +76,7 @@ function Profile(){
           <h2>{userInformation.username}'s Profile</h2>
           <div id="profileContainer">
             <img src={userInformation.profile_img} alt={userInformation.name}></img>
-            {loggedInUser.username === userInformation.username ? <p>Email: {userInformation.email}</p> : null}
+            {loggedInUser.id === userInformation.id ? <p>Email: {userInformation.email}</p> : null}
             <h3>Flavors Reviewed:</h3>
             {reviewArr}
           </div>
@@ -84,8 +84,8 @@ function Profile(){
             {loggedInUser.username === userInformation.username ? <p>Message Feature to be here</p> : null}
           </div> */}
           <div id="accountEditContainer">
-            {loggedInUser.username === userInformation.username ? <EditAccountModal /> : null}
-            {loggedInUser.username === userInformation.username ? <DeleteAccountModal /> : null}
+            {loggedInUser.id === userInformation.id ? <EditAccountModal /> : null}
+            {loggedInUser.id === userInformation.id ? <DeleteAccountModal /> : null}
           </div>
         </div>
     )

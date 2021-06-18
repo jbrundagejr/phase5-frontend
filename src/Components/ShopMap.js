@@ -1,18 +1,17 @@
 import {useSelector} from 'react-redux'
-import { GoogleMap, LoadScript } from '@react-google-maps/api';
-
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
 function ShopMap(){
-  const shopInfo = useSelector(state => state.shopReducer.shop)
+  const flavorInfo = useSelector(state => state.flavorReducer.flavor)
   
   const containerStyle = {
-    width: '400px',
-    height: '400px'
+    height: '250px',
+    width: '250px'
   }
   
   const center = {
-    lat: -3.745,
-    lng: -38.523
+    lat: flavorInfo.shop.lat,
+    lng: flavorInfo.shop.lng
   }
 
   return (
@@ -23,9 +22,12 @@ function ShopMap(){
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={center}
-          zoom={10}
+          zoom={12.5}
         >
-
+          <Marker 
+          position={{lat: flavorInfo.shop.lat, lng: flavorInfo.shop.lng}}
+          getClickable={true}
+        />
           </GoogleMap>
         </LoadScript>
     </div>

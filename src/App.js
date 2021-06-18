@@ -8,6 +8,7 @@ import ShopContainer from './Components/ShopContainer'
 import UsersContainer from './Components/UsersContainer'
 import Profile from './Components/Profile'
 import FlavorModal from './Components/FlavorModal'
+import ShopModal from './Components/ShopModal'
 
 function App() {
 
@@ -45,6 +46,9 @@ function App() {
         </Route>
         <Route exact path="/shops">
           <ShopContainer />
+        </Route>
+        <Route exact path="/shops/:id">
+          <ShopModal />
         </Route>
         <Route exact path ="/users">
           <UsersContainer />

@@ -5,7 +5,6 @@ import {useState} from 'react'
 
 function DeleteAccountModal(){
   const userinfo = useSelector(state => state.userReducer.user)
-  const usersArr = useSelector(state => state.userReducer.users)
   const [open, setOpen] = useState(false)
   const dispatch = useDispatch()
   const history = useHistory()

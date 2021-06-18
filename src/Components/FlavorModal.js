@@ -1,8 +1,9 @@
 import {Modal, Icon, Image, Header, Segment, Dimmer, Loader, Comment} from 'semantic-ui-react'
 import {useSelector, useDispatch} from 'react-redux'
 import {useEffect, useState} from 'react'
-import FlavorReviewForm from './FlavorReviewForm'
 import {useParams, useHistory, Link} from 'react-router-dom'
+import FlavorReviewForm from './FlavorReviewForm'
+import ShopMap from './ShopMap'
 
 function FlavorModal(){
   const loggedInUser = useSelector(state => state.userReducer.user)
@@ -54,7 +55,7 @@ function FlavorModal(){
     
   const flavorReviewArr = flavorReviewInfo.map(flavorReviewObj => {
     return (
-      <Comment>
+      <Comment key={flavorReviewObj.id}>
         <Comment.Avatar src={flavorReviewObj.user.profile_img} alt={flavorReviewObj.user.username} />
         <Comment.Content>
           <Link to={`/profile/${flavorReviewObj.user.id}`}>
@@ -73,7 +74,7 @@ function FlavorModal(){
               <Comment.Action>
                 Message {flavorReviewObj.user.username}
               </Comment.Action> : null } */}
-            {loggedInUser.username === flavorReviewObj.user.username ? 
+            {loggedInUser.id === flavorReviewObj.user.id ? 
               <Comment.Action>
                 <Icon name='trash alternate' onClick={() => handleReviewDelete(flavorReviewObj.id)}/>
               </Comment.Action> : null}
@@ -107,6 +108,7 @@ function FlavorModal(){
             <Image size='medium' src={flavorInfo.image_url} 
               alt={flavorInfo.name} wrapped />
             <Modal.Description>
+              <ShopMap />
               <Header>What this flavor is about...</Header>
               <p>{flavorInfo.description}</p>
               <p>Made at <a href={flavorInfo.shop.website} target="_blank" rel="noreferrer">{flavorInfo.shop.name}</a></p>

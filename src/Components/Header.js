@@ -26,7 +26,7 @@ function Header(){
       </div>
       <nav>
         <NavLink className="headerLink" to="/flavors">Flavors</NavLink>
-        <NavLink className="headerLink" to="/shops">Shops</NavLink>
+        {/* <NavLink className="headerLink" to="/shops">Shops</NavLink> */}
         {loggedInUser.username ? <NavLink className="headerLink" to="/users">Users</NavLink> : null}
         {loggedInUser.username ? <NavLink className="headerLink" to={`/profile/${loggedInUser.id}`}>{loggedInUser.username}</NavLink> : null}
         {loggedInUser.username ? <NavLink className="headerLink" onClick={handleLogout} to="/">Logout</NavLink> : <NavLink to="/">Login</NavLink>}
