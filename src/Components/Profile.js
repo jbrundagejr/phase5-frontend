@@ -85,7 +85,7 @@ function Profile(){
 
         function handleMessageButton(){
           if (matchingConversation) {
-            history.push(`/conversations/${matchingConversation.id}`)
+            history.push(`/conversations/${matchingConversation[0].id}`)
           } else {
             const newConversation = {
               sender_id: loggedInUser.id,
