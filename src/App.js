@@ -4,11 +4,11 @@ import {useDispatch} from 'react-redux'
 import Header from './Components/Header'
 import Login from './Components/Login'
 import FlavorContainer from './Components/FlavorContainer'
-import ShopContainer from './Components/ShopContainer'
+import FlavorModal from './Components/FlavorModal'
 import UsersContainer from './Components/UsersContainer'
 import Profile from './Components/Profile'
-import FlavorModal from './Components/FlavorModal'
-import ShopModal from './Components/ShopModal'
+import ConversationContainer from './Components/ConversationContainer'
+import Conversation from './Components/Conversation'
 
 function App() {
 
@@ -44,17 +44,17 @@ function App() {
         <Route exact path="/flavors/:id">
           <FlavorModal />
         </Route>
-        <Route exact path="/shops">
-          <ShopContainer />
-        </Route>
-        <Route exact path="/shops/:id">
-          <ShopModal />
-        </Route>
         <Route exact path ="/users">
           <UsersContainer />
         </Route>
         <Route exact path="/profile/:id">
           <Profile />
+        </Route>
+        <Route exact path="/conversations">
+          <ConversationContainer />
+        </Route>
+        <Route exact path="/conversations/:id">
+          <Conversation />
         </Route>
       </Switch>
     </div>

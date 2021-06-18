@@ -1,4 +1,4 @@
-import {Modal, Icon, Image, Header, Segment, Dimmer, Loader, Comment} from 'semantic-ui-react'
+import {Modal, Icon, Image, Segment, Dimmer, Loader, Comment} from 'semantic-ui-react'
 import {useSelector, useDispatch} from 'react-redux'
 import {useEffect, useState} from 'react'
 import ReviewForm from './ReviewForm'

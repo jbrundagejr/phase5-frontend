@@ -156,10 +156,49 @@ function modalReducer(state = initialStateOfModalReducer, action) {
   }
 }
 
+let initialStateOfConvoReducer = {
+  convos: [],
+  convo: {},
+  messages: []
+}
+
+function convoReducer(state= initialStateOfConvoReducer, action) {
+  switch (action.type){
+    case "SET_CONVO_ARR":
+      return {
+        ...state,
+        convos: action.payload
+      }
+    case "SET_CONVERSATION_DATA":
+      return {
+        ...state,
+        convo: action.payload
+      }
+    case "SET_MESSAGES":
+      return {
+        ...state,
+        messages: action.payload
+      }
+    case "ADD_MESSAGE":
+      return {
+        ...state,
+        messages: action.payload
+      }
+    case "DELETE_MESSAGE":
+      return {
+        ...state,
+        messages: action.payload
+      }
+    default:
+      return state
+  }
+}
+
 let allReducers = {
-  flavorReducer,
   userReducer,
+  flavorReducer,
   shopReducer,
+  convoReducer,
   modal: modalReducer,
 }
 

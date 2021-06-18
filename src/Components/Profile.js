@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react'
-import {useParams} from 'react-router-dom'
+import {useParams, Link, useHistory} from 'react-router-dom'
 import {useSelector, useDispatch} from 'react-redux'
-import {Segment, Dimmer, Loader, Image, Comment, Icon} from 'semantic-ui-react'
+import {Segment, Dimmer, Loader, Image, Comment, Icon, Button} from 'semantic-ui-react'
 import DeleteAccountModal from './DeleteAccountModal'
 import EditAccountModal from './EditAccountModal'
 
@@ -10,6 +10,7 @@ function Profile(){
   const loggedInUser = useSelector(state => state.userReducer.user)
   const params = useParams()
   const dispatch = useDispatch()
+  const history = useHistory()
 
   useEffect (() => {
     fetch(`http://localhost:3000/users/${params.id}`)
@@ -22,7 +23,8 @@ function Profile(){
   }, [dispatch, params.id])
 
   const userInformation = useSelector(state => state.userReducer.profileUser)
-  const userReviewArr= useSelector(state => state.flavorReducer.flavor_reviews)
+  const userReviewArr = useSelector(state => state.flavorReducer.flavor_reviews)
+  const conversations = useSelector(state => state.convoReducer.convos)
 
     if (!isLoaded) {
       return (
@@ -70,19 +72,53 @@ function Profile(){
         </Comment>
         )
       })
+
+      
+      const matchingConversation = conversations.filter(conversationObj => {
+        if (loggedInUser.id === conversationObj.sender.id && userInformation.id === conversationObj.recipient.id ||
+              loggedInUser.id === conversationObj.recipient.id && userInformation.id === conversationObj.sender.id) {
+                return conversationObj
+              } else return (null)
+      })
+
+      console.log(matchingConversation)
+
+        function handleMessageButton(){
+          if (matchingConversation) {
+            history.push(`/conversations/${matchingConversation.id}`)
+          } else {
+            const newConversation = {
+              sender_id: loggedInUser.id,
+              recipient_id: userInformation.id
+            }
+            fetch("http://localhost:3000/conversations", {
+              method: "POST",
+              headers: {
+                "Authorization": localStorage.token,
+                "content-type": "application/json"
+              },
+              body: JSON.stringify(newConversation)
+            })
+            .then(res => res.json())
+            .then(newConversation => {
+              history.push(`/conversations/${newConversation.id}`)
+            })
+          }
+        }
+    
       
       return(
         <div>
           <h2>{userInformation.username}'s Profile</h2>
           <div id="profileContainer">
-            <img src={userInformation.profile_img} alt={userInformation.name}></img>
+            <img src={userInformation.profile_img} alt={userInformation.username}></img>
             {loggedInUser.id === userInformation.id ? <p>Email: {userInformation.email}</p> : null}
+            {loggedInUser.id === userInformation.id ? <Link to={`/conversations`}>My Convos</Link> : null}
+            {loggedInUser.id !== userInformation.id ? <Button onClick={handleMessageButton}>Message {userInformation.username}</Button> : null}
             <h3>Flavors Reviewed:</h3>
             {reviewArr}
           </div>
-          {/* <div id="messageContainer">
-            {loggedInUser.username === userInformation.username ? <p>Message Feature to be here</p> : null}
-          </div> */}
+          
           <div id="accountEditContainer">
             {loggedInUser.id === userInformation.id ? <EditAccountModal /> : null}
             {loggedInUser.id === userInformation.id ? <DeleteAccountModal /> : null}
