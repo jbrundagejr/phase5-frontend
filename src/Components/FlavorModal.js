@@ -52,28 +52,24 @@ function FlavorModal(){
       dispatch({type: "DELETE_FLAVOR_REVIEW", payload: newFlavorReviewArr})
     })
   } 
+
     
   const flavorReviewArr = flavorReviewInfo.map(flavorReviewObj => {
     return (
       <Comment key={flavorReviewObj.id}>
         <Comment.Avatar src={flavorReviewObj.user.profile_img} alt={flavorReviewObj.user.username} />
         <Comment.Content>
-          <Link to={`/profile/${flavorReviewObj.user.id}`}>
             <Comment.Author>
-              {flavorReviewObj.user.username}
+              {loggedInUser.id ? <Link to={`/profile/${flavorReviewObj.user.id}`}>{flavorReviewObj.user.username}</Link> :
+                <p className="modalText">{flavorReviewObj.user.username}</p>}
             </Comment.Author>
-          </Link>
           <Comment.Text>
-            {flavorReviewObj.content}
+          <p className="modalText">{flavorReviewObj.content}</p>
           </Comment.Text>
           <Comment.Text>
-            Rating: {flavorReviewObj.rating}
+            <p className="modalText">Rating: {flavorReviewObj.rating}</p>
           </Comment.Text>
           <Comment.Actions>
-            {/* {loggedInUser.username && loggedInUser.username !== flavorReviewObj.user.username ? 
-              <Comment.Action>
-                Message {flavorReviewObj.user.username}
-              </Comment.Action> : null } */}
             {loggedInUser.id === flavorReviewObj.user.id ? 
               <Comment.Action>
                 <Icon name='trash alternate' onClick={() => handleReviewDelete(flavorReviewObj.id)}/>
@@ -101,23 +97,29 @@ function FlavorModal(){
           <Modal.Header>
             <div id="modalHeader">
               <h3>{flavorInfo.name}</h3> 
-              <Icon name='arrow alternate circle left' onClick={() => history.push('/flavors')}/>
+              <Icon id="modalBackButton" size="large" name='arrow alternate circle left' onClick={() => history.push('/flavors')}/>
             </div>
           </Modal.Header>
           <Modal.Content image>
             <Image size='medium' src={flavorInfo.image_url} 
               alt={flavorInfo.name} wrapped />
-            <Modal.Description>
-              <ShopMap />
-              <Header>What this flavor is about...</Header>
-              <p>{flavorInfo.description}</p>
-              <p>Made at <a href={flavorInfo.shop.website} target="_blank" rel="noreferrer">{flavorInfo.shop.name}</a></p>
-              <p>Average Rating: {flavorInfo.average_rating}</p>
-              {flavorReviewArr.length > 0 ? <h3>Reviews:</h3> : <h3>We need someone to review this bad boy!</h3>}
+              <Modal.Description>
+                <div id="modalContent">
+                  <div>
+                    <ShopMap />
+                  </div>
+                  <div id="flavorDetailsDiv">
+                    <a className="modalLink" href={flavorInfo.shop.website} target="_blank" rel="noreferrer">{flavorInfo.shop.name}</a>
+                    <Header>What this flavor is about...</Header>
+                    <p className="modalText">{flavorInfo.description}</p>
+                    <p className="modalText">Average Rating: {flavorInfo.average_rating}</p>
+                  </div>
+                </div>
               <Comment.Group>
+              {flavorReviewArr.length > 0 ? <h3>Reviews:</h3> : <Header>We need someone to review this bad boy!</Header>}
                 {flavorReviewArr}
               </Comment.Group>
-            </Modal.Description>
+              </Modal.Description>
           </Modal.Content>
           {loggedInUser.username ? 
             <Modal.Actions>

@@ -19,7 +19,7 @@ function FlavorContainer(){
 
   const flavorArray = flavorsArr.map(flavorObj => {
     return (
-      <Card key={flavorObj.id} color="violet">
+      <Card key={flavorObj.id} color="orange">
         <Link to={`/flavors/${flavorObj.id}`}>
           <Image size="medium" src={flavorObj.image_url} alt={flavorObj.name}></Image>
         </Link>

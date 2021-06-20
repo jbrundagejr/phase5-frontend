@@ -20,13 +20,13 @@ function ShopMap(){
         googleMapsApiKey="AIzaSyA0XA6MS0Ui5t_YnJ_NednyZsZyYJ-aFKU"
       >
         <GoogleMap
+          id="googleMap"
           mapContainerStyle={containerStyle}
           center={center}
-          zoom={12.5}
+          zoom={13}
         >
           <Marker 
           position={{lat: flavorInfo.shop.lat, lng: flavorInfo.shop.lng}}
-          getClickable={true}
         />
           </GoogleMap>
         </LoadScript>

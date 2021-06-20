@@ -44,16 +44,17 @@ function Login(){
   }
 
   return(
-    <div>
-      <p className="welcomeBodyFont">Welcome to Ice Cream Social!</p>
-      <p className="welcomeBodyFont">Login to get started.</p>
-      {errorMessage ? <p>Incorrect email or password.</p> : null}
+    <div id="loginContainer">
+      <p className="bodyText">Welcome to Ice Cream Social! </p>
+      <p className="bodyText">This is a place for you to discover the best flavors in your community, as well as meet other ice cream lovers.</p>
+      <p className="bodyText">Login to get started.</p>
+      {errorMessage ? <p className="bodyText">Sorry, that's the wrong username or password. Please try again.</p> : null}
       <Form onSubmit={handleClick}>
-        <Input className="input" label='Email' id="name" value={email} onChange={userEmail} type="text" placeholder="Your email address"></Input><br/>
-        <Input className="input" label='Password' id="userpassword" value={password} onChange={userPassword} type="password" placeholder="Your password"></Input><br/>
+        <Input className="loginInput" label='Email' id="name" value={email} onChange={userEmail} type="text" placeholder="Your email address"></Input><br/>
+        <Input className="loginInput" label='Password' id="userpassword" value={password} onChange={userPassword} type="password" placeholder="Your password"></Input><br/>
         <Button>Login</Button><br/>
       </Form>
-      <p>Don't have an account?</p><CreateProfile />
+      <p className="bodyText">Don't have an account?</p><CreateProfile />
     </div>
   )
 }

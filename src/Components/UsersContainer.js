@@ -18,21 +18,21 @@ function UserContainer(){
 
   const userArray = usersArr.map(userObj => {
     return (
-      <Link to={`/profile/${userObj.id}`} key={userObj.id}>
-        <Card>
-          <Image src={userObj.profile_img} wrapped ui={false} />
-          <Card.Content>
-            <Card.Header>
-              {userObj.username}
-            </Card.Header>
-          </Card.Content>
-        </Card>
-      </Link>
+      <Card key={userObj.id}>
+        <Link to={`/profile/${userObj.id}`} >
+          <Image size="medium" src={userObj.profile_img}></Image>
+        </Link>
+        <Card.Content>
+          <Card.Header>
+            {userObj.username}
+          </Card.Header>
+        </Card.Content>
+      </Card>
     )
   })
 
   return(
-    <div>
+    <div id="userContainer">
       <h2>Fellow Ice Cream Lovers</h2>
       <div className="ui link four cards">
       {userArray}

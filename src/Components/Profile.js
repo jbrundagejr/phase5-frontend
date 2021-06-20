@@ -22,6 +22,15 @@ function Profile(){
       })
   }, [dispatch, params.id])
 
+  useEffect (() => {
+    fetch(`http://localhost:3000/conversations`)
+      .then(res => res.json())
+      .then(convoData => {
+        dispatch({type: "SET_CONVO_ARR", payload: convoData})
+        setIsLoaded(true)
+      })
+  }, [dispatch])
+
   const userInformation = useSelector(state => state.userReducer.profileUser)
   const userReviewArr = useSelector(state => state.flavorReducer.flavor_reviews)
   const conversations = useSelector(state => state.convoReducer.convos)
@@ -55,12 +64,16 @@ function Profile(){
       const reviewArr = userReviewArr.map(reviewObj => {
         return (
           <Comment key={reviewObj.id}>
-          <Image src={reviewObj.flavor.image_url} alt={reviewObj.flavor.name} size="small"></Image>
+            <Link to={`/flavors/${reviewObj.flavor.id}`}>
+              <Image src={reviewObj.flavor.image_url} alt={reviewObj.flavor.name} size="small"></Image>
+            </Link>
           <Comment.Content>
-          <Comment.Author>{reviewObj.flavor.name}</Comment.Author>
+          <Comment.Author>
+            <h4>{reviewObj.flavor.name}</h4>
+          </Comment.Author>
             <Comment.Text>
-              {reviewObj.content}
-              My Rating: {reviewObj.rating}
+              <p className="modalText">{reviewObj.content}</p>
+              <p className="modalText">My Rating: {reviewObj.rating}</p>
             </Comment.Text>
             <Comment.Actions>
               {loggedInUser.id === userInformation.id ? 
@@ -75,16 +88,15 @@ function Profile(){
 
       
       const matchingConversation = conversations.filter(conversationObj => {
-        if (loggedInUser.id === conversationObj.sender.id && userInformation.id === conversationObj.recipient.id ||
-              loggedInUser.id === conversationObj.recipient.id && userInformation.id === conversationObj.sender.id) {
-                return conversationObj
-              } else return (null)
+        if (loggedInUser.id === conversationObj.sender.id && userInformation.id === conversationObj.recipient.id){
+          return true
+        } else if (loggedInUser.id === conversationObj.recipient.id && userInformation.id === conversationObj.sender.id) {
+          return true
+        } else return null
       })
 
-      console.log(matchingConversation)
-
         function handleMessageButton(){
-          if (matchingConversation) {
+          if (matchingConversation.length > 0) {
             history.push(`/conversations/${matchingConversation[0].id}`)
           } else {
             const newConversation = {
@@ -101,6 +113,7 @@ function Profile(){
             })
             .then(res => res.json())
             .then(newConversation => {
+              dispatch({type: "SET_CONVERSATION_DATA", payload: newConversation})
               history.push(`/conversations/${newConversation.id}`)
             })
           }
@@ -108,21 +121,22 @@ function Profile(){
     
       
       return(
-        <div>
+        <div id="profileContainer">
           <h2>{userInformation.username}'s Profile</h2>
-          <div id="profileContainer">
-            <img src={userInformation.profile_img} alt={userInformation.username}></img>
-            {loggedInUser.id === userInformation.id ? <p>Email: {userInformation.email}</p> : null}
-            {loggedInUser.id === userInformation.id ? <Link to={`/conversations`}>My Convos</Link> : null}
-            {loggedInUser.id !== userInformation.id ? <Button onClick={handleMessageButton}>Message {userInformation.username}</Button> : null}
+          <div id="profileInfo">
+            <Image size="medium" src={userInformation.profile_img} alt={userInformation.username}></Image>
+            <div id="userInfo">
+              {loggedInUser.id === userInformation.id ? <p className="bodyText">Email: {userInformation.email}</p> : null}
+              {loggedInUser.id === userInformation.id ? <Link to={`/conversations`}>My Convos</Link> : null}
+              {loggedInUser.id !== userInformation.id ? <Button onClick={handleMessageButton}>Message {userInformation.username}</Button> : null}
+              <div id="accountEditContainer">
+                {loggedInUser.id === userInformation.id ? <EditAccountModal /> : null}
+                {loggedInUser.id === userInformation.id ? <DeleteAccountModal /> : null}
+              </div>
+            </div>
+          </div>
             <h3>Flavors Reviewed:</h3>
             {reviewArr}
-          </div>
-          
-          <div id="accountEditContainer">
-            {loggedInUser.id === userInformation.id ? <EditAccountModal /> : null}
-            {loggedInUser.id === userInformation.id ? <DeleteAccountModal /> : null}
-          </div>
         </div>
     )
   }

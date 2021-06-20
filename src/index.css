@@ -1,31 +1,110 @@
 body {
-  background-color: rgb(12, 226, 226);
+  background-color: rgb(136, 200, 162);
 }
 
 h1 {
   font-size: 4em;
+  font-family: rig-solid-bold-halftone,sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  color: rgb(229, 68, 37);
 }
 
 h2 {
-  font-size: 2em;
+  font-size: 2.5em;
+  font-family: 'Josefin Sans', sans-serif;
+  color: rgb(102, 101, 74);
+  padding-top: 10px;
 }
 
 h3 {
+  font-family: rig-solid-bold-halftone,sans-serif;
+  font-size: 2em;
+  margin: 0;
+  color: rgb(229, 68, 37)
+}
+
+h4 {
+  font-family: 'Josefin Sans', sans-serif;
+  color: rgb(102, 101, 74);
   font-size: 1.5em;
+  margin: 0;
+}
+
+.bodyText {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 1.5em;
+  color: rgb(68, 67, 49);
 }
 
 .headerLink {
-  font-size: 1em;
+  font-size: 1.5em;
+  font-style: bold;
   padding-left: 5px;
   padding-right: 5px;
+  font-family: 'Josefin Sans', sans-serif;
+  color: rgb(229, 68, 37);
+}
+
+.headerLink:hover {
+  color: rgb(102, 101, 74);
 }
 
 #navContainer {
   display: flex;
-  background-color: white;
+  background-color: rgb(250, 226, 150);
   align-items: center;
   justify-content: space-around;
   height: 7em;
+}
+
+#loginContainer {
+  margin: 0 20%;
+  text-align: center;
+}
+
+#create-account {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 1.5em;
+  color: rgb(68, 67, 49);
+}
+
+#create-account:hover {
+  cursor: pointer;
+  color: rgb(229, 68, 37);
+}
+
+.form {
+  padding: 2em;
+  margin: 0 auto;
+  display: flex;
+  width: 500px;
+  flex-direction: column;
+  align-content: center;
+}
+
+#createProfileModalBackground {
+  background-color: rbg(136, 200, 162);
+}
+
+#createAccountBackButton {
+  color: rgb(229, 68, 37);
+  padding-top: 5px;
+}
+
+#createAccountBackButton:hover {
+  color: rgb(102, 101, 74);
+  cursor: pointer;
+}
+
+.loginInput {
+  width: 320px;
+  padding: 5px;
+}
+
+.input {
+  width: 320px;
+  padding-top: 6px;
 }
 
 #flavorContainer {
@@ -36,7 +115,9 @@ h3 {
 
 #flavorContainerHeader {
   display: flex;
-  align-content: space-between;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
 }
 
 #modalHeader {
@@ -44,15 +125,109 @@ h3 {
   justify-content: space-between;
 }
 
-#mainShopContainer {
+#modalBackButton {
+  color: rgb(229, 68, 37);
+  padding-top: 10px;
+}
+
+#modalBackButton:hover {
+  color: rgb(102, 101, 74);
+  cursor: pointer;
+}
+
+#modalContent {
+  display: flex;
+}
+
+#flavorDetailsDiv {
+  padding: 10px;
+}
+
+.modalLink {
+  font-family: "pacifico", sans-serif;
+  color: rgb(102, 101, 74);
+  font-size: 1.5em;
+}
+
+#userContainer {
+  display: flex;
+  flex-wrap: wrap;
   margin: 0 20%;
 }
 
-#shopInfoContainer {
-  display: flex;
-  background-color: rgb(12, 226, 226);
+#conversationContainer {
+  margin: 0 20%;
+}
+
+.ui.card>.content, .ui.cards>.card>.content{
+  background-color: rgb(250, 226, 150);
+}
+
+#googleMap:hover {
+  cursor: none;
 }
 
 div.content:hover {
   cursor: default;
+}
+
+.ui.medium.image, .ui.medium.images .image, .ui.medium.images img, .ui.medium.images svg {
+  width: 300px;
+  height: auto;
+}
+
+.ui.card>.content>.header:not(.ui), .ui.cards>.card>.content>.header:not(.ui) {
+  font-family: 'Josefin Sans', sans-serif;
+  color: rgb(229, 68, 37);
+  font-size: 1.5em;
+}
+
+.ui.card .meta>a:not(.ui), .ui.cards>.card .meta>a:not(.ui) {
+  font-family: 'Josefin Sans', sans-serif;
+  color: rgb(102, 101, 74);
+  font-family: "pacifico", sans-serif;
+  font-size: 1.25em;
+}
+
+.modalText {
+  font-family: 'Josefin Sans', sans-serif;
+  color: rgb(68, 67, 49)
+}
+
+.modalLink:hover {
+  color:rgb(229, 68, 37)
+}
+
+.ui.modal>.header:not(.ui) {
+  background-color: rgb(250, 226, 150);
+}
+
+.ui.modal>.image.content {
+  background-color: rgb(136, 200, 162);
+}
+
+.ui.modal>.actions {
+  background-color: rgb(136, 200, 162);
+}
+
+.ui.header {
+  font-family: 'Josefin Sans', sans-serif;
+  color:rgb(102, 101, 74)
+}
+
+.ui.comments .comment .author {
+  font-family: 'Josefin Sans', sans-serif;
+  color:rgb(102, 101, 74);
+}
+
+#profileContainer {
+  margin: 0 20%;
+}
+
+#profileInfo {
+  display: flex;
+}
+
+#specificConversationContainer {
+  margin: 0 20%;
 }

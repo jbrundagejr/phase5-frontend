@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import {Modal, Form, Input, Button} from 'semantic-ui-react'
+import {Modal, Form, Input, Button, Icon} from 'semantic-ui-react'
 import {useHistory} from 'react-router-dom'
 import {useDispatch} from 'react-redux'
 
@@ -68,15 +68,22 @@ function CreateProfile(){
     trigger={<p id="create-account">Create one!</p>}
     className="modal"
     >
-      <Modal.Header>Create Account</Modal.Header>
-      {errorMessage ? <p>Invalid input info. Please try again.</p> : null}
-        <Form onSubmit={e => handleSubmit(e)}>
+      <Modal.Header>
+        <div id="modalHeader">
+          <h4>Create an Account</h4> 
+          <Icon id="createAccountBackButton" size="large" name='arrow alternate circle left' onClick={() => setOpen(false)}/>
+        </div>
+      </Modal.Header>
+      <Modal.Content>
+      {errorMessage ? <p className="bodyText">Hmm, seems like something is wrong. Please try again.</p> : null}
+        <Form className="form" onSubmit={e => handleSubmit(e)}>
             <Input placeholder="Name" required value={username} onChange={whatUserNamed}/>
             <Input placeholder="Password" required type="password"  value={userPassword} onChange={whatUserPassworded}/>
             <Input placeholder="Email" required type = "email"  value={userEmail} onChange={whatUserEmailed}/>
             <Input placeholder="Profile Picture" required type="url" value={userProfilePic} onChange={whatUserProfiledPic}/>
           <Button type='submit'>Submit</Button>
         </Form>
+        </Modal.Content>
       </Modal>
   )
 }

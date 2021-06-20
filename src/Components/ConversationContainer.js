@@ -1,11 +1,12 @@
 import {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {Feed, Image} from 'semantic-ui-react'
-import {Link} from 'react-router-dom'
+import {useHistory} from 'react-router-dom'
 
 function ConversationContainer(){
   const loggedInUser = useSelector(state => state.userReducer.user)
   const dispatch = useDispatch()
+  const history = useHistory()
 
   useEffect(() => {
     fetch("http://localhost:3000/conversations")
@@ -19,10 +20,10 @@ function ConversationContainer(){
 
   const filteredConversations = convoArr.filter(conversationObj => {
     if (conversationObj.sender.id === loggedInUser.id){
-      return conversationObj
+      return true
     } else if (conversationObj.recipient.id === loggedInUser.id){
-      return conversationObj
-    }
+      return true
+    } else return null
   })
 
   const userConversations = filteredConversations.map(convoObj => {
@@ -34,23 +35,22 @@ function ConversationContainer(){
             <Image src={convoObj.sender.profile_img}/>}
         </Feed.Label>
         <Feed.Content>
-          <Link to={`conversations/${convoObj.id}`}>
-            <Feed.Summary>
-              {loggedInUser.id === convoObj.sender.id ?
-                <Feed.User>Convo with {convoObj.recipient.username}</Feed.User> : 
-                <Feed.User>Convo with {convoObj.sender.username}</Feed.User>}
-            </Feed.Summary>
-          </Link>
+          <Feed.Summary>
+            {loggedInUser.id === convoObj.sender.id ?
+            <Feed.User onClick={() => history.push(`conversations/${convoObj.id}`)}>Convo with {convoObj.recipient.username}</Feed.User> : 
+            <Feed.User onclick={() => history.push(`conversations/${convoObj.id}`)}>Convo with {convoObj.sender.username}</Feed.User>}
+          </Feed.Summary>
         </Feed.Content>
       </Feed.Event>
     )
   })
 
   return (
-    <div>
+    <div id="conversationContainer">
       <h2>Active Convos</h2>
       <Feed>
-        {userConversations}
+        {userConversations.length > 0 ? userConversations : 
+        <p className="bodyText">You don't have any active conversations with other users. Get chatting!</p>}
       </Feed>
     </div>
   )

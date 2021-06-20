@@ -21,8 +21,9 @@ function Search(){
 
   return (
     <div>
-      <div class= "ui input" >
+      <div className= "ui input" >
         <Input 
+          className="input"
           type="text" 
           id="search" 
           placeholder="Search by name, shop, ingredients..." 

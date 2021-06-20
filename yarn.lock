@@ -1526,6 +1526,11 @@
   "resolved" "https://registry.npmjs.org/@popperjs/core/-/core-2.9.2.tgz"
   "version" "2.9.2"
 
+"@rails/actioncable@^6.0.4":
+  "integrity" "sha512-dTirb2EMt/YPVkEZp3GSXwjR+dYjbK0b0NtupEiuwj5dsffFfRnvtPK/aqLibZH6J3G8EAHnuoAaTF0neq2ggw=="
+  "resolved" "https://registry.npmjs.org/@rails/actioncable/-/actioncable-6.0.4.tgz"
+  "version" "6.0.4"
+
 "@react-google-maps/api@^2.2.0":
   "integrity" "sha512-kMmzHyveLdEiLP+WN/H4vYEyaDTJn59mXj5Y0BxjJs5SIMhUtYxJ6EeJCV0aRSN+Gq5hYFLheBoy8Pfqtabq5g=="
   "resolved" "https://registry.npmjs.org/@react-google-maps/api/-/api-2.2.0.tgz"

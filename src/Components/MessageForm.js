@@ -1,12 +1,10 @@
 import {Form, TextArea, Button} from 'semantic-ui-react'
-import {useDispatch, useSelector} from 'react-redux'
+import {useSelector} from 'react-redux'
 import {useState} from 'react'
 
 function MessageForm(){
   const conversation = useSelector(state => state.convoReducer.convo)
-  const messages = useSelector(state => state.convoReducer.messages)
   const [userContent, setUserContent] = useState("")
-  const dispatch = useDispatch()
 
   function handleMessageSubmit(e){
     e.preventDefault()
@@ -24,8 +22,6 @@ function MessageForm(){
     })
     .then(res => res.json())
     .then(newMessage => {
-      const newMessageArr = [...messages, newMessage]
-      dispatch({type: "ADD_MESSAGE", payload: newMessageArr})
       setUserContent("")
     })
   }
