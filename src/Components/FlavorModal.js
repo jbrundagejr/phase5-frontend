@@ -116,7 +116,7 @@ function FlavorModal(){
                     <p className="modalText">Average Rating: {flavorInfo.average_rating}</p>
                   </div>
                 </div>
-              <Comment.Group>
+              <Comment.Group id="commentGroup">
               {flavorReviewArr.length > 0 ? <h3>Reviews:</h3> : <Header>We need someone to review this bad boy!</Header>}
                 {flavorReviewArr}
               </Comment.Group>

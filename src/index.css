@@ -31,7 +31,6 @@ h3 {
   font-size: 2em;
   margin: 0;
   color: rgb(229, 68, 37);
-  padding-top: 15px;
 }
 
 h3:hover {
@@ -127,7 +126,7 @@ h4 {
 }
 
 #search {
-  width: 300px;
+  width: 290px;
   margin-top: 10px;
 }
 
@@ -174,7 +173,7 @@ h4 {
 #shopImageAndMapContainer {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: flex-start;
 }
 
 .modalText {
@@ -347,4 +346,8 @@ label.label {
   font-style: normal;
   color: rgb(68, 67, 49);
   padding: 5px;
+}
+
+#commentGroup {
+  padding-top: 15px;
 }
