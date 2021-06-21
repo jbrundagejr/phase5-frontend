@@ -1,4 +1,4 @@
-import {Modal, Button} from 'semantic-ui-react'
+import {Modal, Button, Icon} from 'semantic-ui-react'
 import {useDispatch, useSelector} from 'react-redux'
 import {useHistory} from 'react-router-dom'
 import {useState} from 'react'
@@ -30,11 +30,16 @@ function DeleteAccountModal(){
         onClose={() => setOpen(false)}
         onOpen={() => setOpen(true)}
         open={open} 
-        trigger={<Button className="ui small button">Delete Account</Button>}
+        trigger={<p className="accountEditText">Delete Account</p>}
       >
-        <Modal.Header>Delete Your Account</Modal.Header>
+        <Modal.Header>
+        <div id="modalHeader">
+          <h3>Delete Account</h3> 
+          <Icon id="modalBackButton" size="large" name='arrow alternate circle left' onClick={() => setOpen(false)}/>
+        </div>
+        </Modal.Header>
         <Modal.Content>
-          <p>Are you sure you want to delete your account? We'd hate to see you go!</p>
+          <p className="bodyText">Are you sure you want to delete your account? We'd hate to see you go!</p>
         </Modal.Content>
         <Modal.Actions>
           <Button negative onClick={() => setOpen(false)}>

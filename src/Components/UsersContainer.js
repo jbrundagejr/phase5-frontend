@@ -20,7 +20,7 @@ function UserContainer(){
     return (
       <Card key={userObj.id}>
         <Link to={`/profile/${userObj.id}`} >
-          <Image size="medium" src={userObj.profile_img}></Image>
+          <Image src={userObj.profile_img}></Image>
         </Link>
         <Card.Content>
           <Card.Header>

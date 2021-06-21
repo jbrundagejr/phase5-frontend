@@ -21,7 +21,7 @@ function FlavorContainer(){
     return (
       <Card key={flavorObj.id} color="orange">
         <Link to={`/flavors/${flavorObj.id}`}>
-          <Image size="medium" src={flavorObj.image_url} alt={flavorObj.name}></Image>
+          <Image src={flavorObj.image_url} alt={flavorObj.name}></Image>
         </Link>
         <Card.Content>
           <Card.Header>{flavorObj.name}</Card.Header>

@@ -70,17 +70,21 @@ function CreateProfile(){
     >
       <Modal.Header>
         <div id="modalHeader">
-          <h4>Create an Account</h4> 
+          <h3>Create an Account</h3> 
           <Icon id="createAccountBackButton" size="large" name='arrow alternate circle left' onClick={() => setOpen(false)}/>
         </div>
       </Modal.Header>
       <Modal.Content>
       {errorMessage ? <p className="bodyText">Hmm, seems like something is wrong. Please try again.</p> : null}
         <Form className="form" onSubmit={e => handleSubmit(e)}>
-            <Input placeholder="Name" required value={username} onChange={whatUserNamed}/>
-            <Input placeholder="Password" required type="password"  value={userPassword} onChange={whatUserPassworded}/>
-            <Input placeholder="Email" required type = "email"  value={userEmail} onChange={whatUserEmailed}/>
-            <Input placeholder="Profile Picture" required type="url" value={userProfilePic} onChange={whatUserProfiledPic}/>
+          <label htmlFor="username" className="label">Username</label>
+          <Input placeholder="Username" required value={username} onChange={whatUserNamed}/>
+          <label htmlFor="password" className="label">Password</label>
+          <Input placeholder="Password" required type="password"  value={userPassword} onChange={whatUserPassworded}/>
+          <label htmlFor="email" className="label">Email Address</label>
+          <Input placeholder="Email" required type = "email"  value={userEmail} onChange={whatUserEmailed}/>
+          <label htmlFor="profile_img" className="label">Profile Picture</label>
+          <Input placeholder="Profile Picture" required type="url" value={userProfilePic} onChange={whatUserProfiledPic}/>
           <Button type='submit'>Submit</Button>
         </Form>
         </Modal.Content>

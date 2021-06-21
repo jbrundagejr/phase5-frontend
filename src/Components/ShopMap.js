@@ -5,8 +5,8 @@ function ShopMap(){
   const flavorInfo = useSelector(state => state.flavorReducer.flavor)
   
   const containerStyle = {
-    height: '250px',
-    width: '250px'
+    height: '215px',
+    width: '215px'
   }
   
   const center = {

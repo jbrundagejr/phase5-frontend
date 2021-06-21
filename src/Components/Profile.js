@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react'
 import {useParams, Link, useHistory} from 'react-router-dom'
 import {useSelector, useDispatch} from 'react-redux'
-import {Segment, Dimmer, Loader, Image, Comment, Icon, Button} from 'semantic-ui-react'
+import {Segment, Dimmer, Loader, Image, Item, Icon} from 'semantic-ui-react'
 import DeleteAccountModal from './DeleteAccountModal'
 import EditAccountModal from './EditAccountModal'
 
@@ -63,26 +63,23 @@ function Profile(){
 
       const reviewArr = userReviewArr.map(reviewObj => {
         return (
-          <Comment key={reviewObj.id}>
+          <Item key={reviewObj.id}>
             <Link to={`/flavors/${reviewObj.flavor.id}`}>
-              <Image src={reviewObj.flavor.image_url} alt={reviewObj.flavor.name} size="small"></Image>
+              <Item.Image size='small' src={reviewObj.flavor.image_url} alt={reviewObj.flavor.name}/>
             </Link>
-          <Comment.Content>
-          <Comment.Author>
-            <h4>{reviewObj.flavor.name}</h4>
-          </Comment.Author>
-            <Comment.Text>
-              <p className="modalText">{reviewObj.content}</p>
-              <p className="modalText">My Rating: {reviewObj.rating}</p>
-            </Comment.Text>
-            <Comment.Actions>
+            <Item.Content>
+              <Item.Header id="profileReviewHeader" onClick={() => history.push(`/flavors/${reviewObj.flavor.id}`)}><h4>{reviewObj.flavor.name}</h4></Item.Header>
+              <Item.Description>
+                <p className="modalText">{reviewObj.content}</p>
+                <p className="modalText">My Rating: {reviewObj.rating}</p>
+              </Item.Description>
+              <Item.Extra>
               {loggedInUser.id === userInformation.id ? 
-                <Comment.Action>
                   <Icon onClick={() => handleReviewDelete(reviewObj.id)} name="trash alternate" />
-                </Comment.Action> : null}
-            </Comment.Actions>
-          </Comment.Content>
-        </Comment>
+                  : null}
+              </Item.Extra>
+            </Item.Content>
+          </Item>
         )
       })
 
@@ -127,16 +124,18 @@ function Profile(){
             <Image size="medium" src={userInformation.profile_img} alt={userInformation.username}></Image>
             <div id="userInfo">
               {loggedInUser.id === userInformation.id ? <p className="bodyText">Email: {userInformation.email}</p> : null}
-              {loggedInUser.id === userInformation.id ? <Link to={`/conversations`}>My Convos</Link> : null}
-              {loggedInUser.id !== userInformation.id ? <Button onClick={handleMessageButton}>Message {userInformation.username}</Button> : null}
-              <div id="accountEditContainer">
-                {loggedInUser.id === userInformation.id ? <EditAccountModal /> : null}
-                {loggedInUser.id === userInformation.id ? <DeleteAccountModal /> : null}
-              </div>
+              {loggedInUser.id === userInformation.id ? <p className="accountEditText" onClick={() => history.push(`/conversations`)}>My Convos</p> : null}
+              {loggedInUser.id !== userInformation.id ? <p className="accountEditText" onClick={handleMessageButton}>Message {userInformation.username}</p> : null}
+              {loggedInUser.id === userInformation.id ? <EditAccountModal /> : null}
+              {loggedInUser.id === userInformation.id ? <DeleteAccountModal /> : null}
             </div>
           </div>
-            <h3>Flavors Reviewed:</h3>
-            {reviewArr}
+            <div id="profileReviewContainer">
+              <h3>Flavors Reviewed:</h3>
+              <Item.Group>
+                {reviewArr}
+              </Item.Group>
+            </div>
         </div>
     )
   }

@@ -1,4 +1,4 @@
-import {Modal, Button, Input, Form} from 'semantic-ui-react'
+import {Modal, Button, Input, Form, Icon} from 'semantic-ui-react'
 import {useDispatch, useSelector} from 'react-redux'
 import {useParams} from 'react-router-dom'
 import {useState} from 'react'
@@ -60,12 +60,17 @@ function EditAccountModal(){
         onClose={() => setOpen(false)}
         onOpen={() => setOpen(true)}
         open={open}
-        trigger={<Button className="ui small button">Edit Account</Button>}
+        trigger={<p className="accountEditText">Edit Account</p>}
         className="modal"
       >
-      <Modal.Header>Edit Account</Modal.Header>
+      <Modal.Header>
+        <div id="modalHeader">
+          <h3>Edit Account</h3> 
+          <Icon id="modalBackButton" size="large" name='arrow alternate circle left' onClick={() => setOpen(false)}/>
+        </div>
+      </Modal.Header>
       {errorMessage ? <p>Hmm that didn't work. Please try again.</p> : null}
-        <Form onSubmit={handleUpdate}>
+        <Form className="form" onSubmit={handleUpdate}>
           <label htmlFor="username" className="label">New Username</label>
           <Input id="username" placeholder={userinfo.username} required value={username} onChange={whatUserNamed}/>
           <label htmlFor="email" className="label">New Email Address</label>

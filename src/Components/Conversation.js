@@ -1,6 +1,6 @@
 import {useSelector, useDispatch} from 'react-redux'
 import {useEffect, useState, useRef} from 'react'
-import {useParams} from 'react-router-dom'
+import {useParams, Link} from 'react-router-dom'
 import {Comment, Header, Icon, Segment, Dimmer, Loader, Image} from 'semantic-ui-react'
 import MessageForm from './MessageForm'
 import {createConsumer} from '@rails/actioncable'
@@ -80,13 +80,12 @@ function Conversation(){
     }
 
     const messageArray = messages.map(messageObj => {
+      if (loggedInUser.id === messageObj.user.id){
       return (
-        <Comment key={messageObj.id}>
-          <Comment.Avatar src={messageObj.user.profile_img} alt={messageObj.user.username} />
+        <Comment id="senderMessage" key={messageObj.id}>
+          {/* <Comment.Avatar src={messageObj.user.profile_img} alt={messageObj.user.username} /> */}
           <Comment.Content>
-            <Comment.Author>
-              {messageObj.user.username}
-            </Comment.Author>
+            <Comment.Author>{messageObj.user.username}</Comment.Author>
             <Comment.Text>
               <p className="bodyText">{messageObj.content}</p>
               {loggedInUser.id === messageObj.user.id ? 
@@ -94,20 +93,38 @@ function Conversation(){
                 : null}
             </Comment.Text>
           </Comment.Content>
-          <Comment.Actions>
-            
-          </Comment.Actions>
         </Comment>
       )
+        } else {
+          return (
+            <Comment id="receiverMessage" key={messageObj.id}>
+            <Comment.Avatar src={messageObj.user.profile_img} alt={messageObj.user.username} />
+            <Comment.Content>
+              <Comment.Author>
+                <Link to={`/profile/${messageObj.user.id}`}>{messageObj.user.username}</Link>
+              </Comment.Author>
+              <Comment.Text>
+                <p className="bodyText">{messageObj.content}</p>
+                {loggedInUser.id === messageObj.user.id ? 
+                  <Icon name='trash alternate' onClick={() => handleMessageDelete(messageObj.id)}/>
+                  : null}
+              </Comment.Text>
+            </Comment.Content>
+          </Comment>
+          )
+        }
     })
+
     return (
-      <div id="specificConversationContainer">
-        <Comment.Group>
-          <Header as='h2' dividing>
-            Messages
+      <div className="specificConversationContainer">
+          <Header>
+            <h2>Messages</h2>
           </Header>
-          {messageArray}
-        </Comment.Group>
+          <div className="specificConversationContainer">
+            <Comment.Group size="large">
+              {messageArray}
+            </Comment.Group>
+          </div>
         <MessageForm />
       </div>
     )

@@ -29,7 +29,6 @@ function Search(){
           placeholder="Search by name, shop, ingredients..." 
           value={searchedFlavor} 
           onChange={whatUserTyped}
-          // onChange={() => dispatch({type: "SEARCH_FLAVORS", payload: filteredFlavorArray})}
         ></Input>
       </div>
     </div>

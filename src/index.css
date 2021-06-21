@@ -10,6 +10,11 @@ h1 {
   color: rgb(229, 68, 37);
 }
 
+h1:hover {
+  cursor: pointer;
+  color: rgb(102, 101, 74);
+}
+
 h2 {
   font-size: 2.5em;
   font-family: 'Josefin Sans', sans-serif;
@@ -17,17 +22,26 @@ h2 {
   padding-top: 10px;
 }
 
+h2:hover {
+  cursor: default;
+}
+
 h3 {
   font-family: rig-solid-bold-halftone,sans-serif;
   font-size: 2em;
   margin: 0;
-  color: rgb(229, 68, 37)
+  color: rgb(229, 68, 37);
+  padding-top: 15px;
+}
+
+h3:hover {
+  cursor: default
 }
 
 h4 {
   font-family: 'Josefin Sans', sans-serif;
   color: rgb(102, 101, 74);
-  font-size: 1.5em;
+  font-size: 1.25em;
   margin: 0;
 }
 
@@ -35,6 +49,7 @@ h4 {
   font-family: 'Josefin Sans', sans-serif;
   font-size: 1.5em;
   color: rgb(68, 67, 49);
+  margin: 0;
 }
 
 .headerLink {
@@ -61,6 +76,7 @@ h4 {
 #loginContainer {
   margin: 0 20%;
   text-align: center;
+  padding-top: 5%;
 }
 
 #create-account {
@@ -97,14 +113,26 @@ h4 {
   cursor: pointer;
 }
 
+.ui.modal>.content {
+  background-color: rgb(136, 200, 162);
+}
+
 .loginInput {
-  width: 320px;
+  width: 100%;
   padding: 5px;
 }
 
 .input {
-  width: 320px;
-  padding-top: 6px;
+  width: 100%;
+}
+
+#search {
+  width: 300px;
+  margin-top: 10px;
+}
+
+.ui.form input:not([type]), .ui.form input[type=date], .ui.form input[type=datetime-local], .ui.form input[type=email], .ui.form input[type=file], .ui.form input[type=number], .ui.form input[type=password], .ui.form input[type=search], .ui.form input[type=tel], .ui.form input[type=text], .ui.form input[type=time], .ui.form input[type=url] {
+  font-family: 'Josefin Sans', sans-serif;
 }
 
 #flavorContainer {
@@ -139,14 +167,34 @@ h4 {
   display: flex;
 }
 
-#flavorDetailsDiv {
-  padding: 10px;
+/* #flavorDetailsDiv {
+  padding-left: 15px;
+} */
+
+#shopImageAndMapContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.modalText {
+  font-family: 'Josefin Sans', sans-serif;
+  color: rgb(68, 67, 49);
+  margin: 0;
 }
 
 .modalLink {
   font-family: "pacifico", sans-serif;
   color: rgb(102, 101, 74);
-  font-size: 1.5em;
+  font-size: 2em;
+}
+
+a {
+  color:rgb(68, 67, 49)
+}
+
+a:hover {
+  color: rgb(229, 68, 37);
 }
 
 #userContainer {
@@ -189,11 +237,6 @@ div.content:hover {
   font-size: 1.25em;
 }
 
-.modalText {
-  font-family: 'Josefin Sans', sans-serif;
-  color: rgb(68, 67, 49)
-}
-
 .modalLink:hover {
   color:rgb(229, 68, 37)
 }
@@ -212,12 +255,14 @@ div.content:hover {
 
 .ui.header {
   font-family: 'Josefin Sans', sans-serif;
-  color:rgb(102, 101, 74)
+  color:rgb(102, 101, 74);
+  margin-bottom: 0;
 }
 
 .ui.comments .comment .author {
   font-family: 'Josefin Sans', sans-serif;
   color:rgb(102, 101, 74);
+  margin-top: 0;
 }
 
 #profileContainer {
@@ -228,6 +273,78 @@ div.content:hover {
   display: flex;
 }
 
-#specificConversationContainer {
+#userInfo {
+  padding: 5% 0 5% 0;
+  padding-left: 10px;
+}
+
+.specificConversationContainer {
   margin: 0 20%;
+}
+
+#senderMessage {
+  text-align: end;
+}
+
+.accountEditText {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 1.5em;
+  color: rgb(68, 67, 49);
+  margin: 0;
+}
+
+.accountEditText:hover {
+  color: rgb(229, 68, 37);
+  cursor: pointer;
+}
+
+.ui.active.modal {
+  background-color: rgb(136, 200, 162);
+}
+
+i.icon:hover {
+  cursor: pointer;
+  color: rgb(229, 68, 37);
+}
+
+#messageHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+div.ui.comments {
+  margin: 0;
+  max-width: 100%;
+}
+
+.ui.comments .comment {
+  margin: 0;
+}
+
+.ui.items>.item>.content>.header {
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+.ui.items>.item>.content>.header:hover {
+  cursor: pointer;
+  color: rgb(229, 68, 37);
+}
+
+#profileReviewContainer {
+  padding: 10px;
+}
+
+#profileReviewHeader:hover {
+  cursor: pointer;
+  color: rgb(229, 68, 37);
+}
+
+label.label {
+  font-family: rig-solid-bold-halftone,sans-serif;
+  font-size: 1.75em;
+  font-weight: 700;
+  font-style: normal;
+  color: rgb(68, 67, 49);
+  padding: 5px;
 }

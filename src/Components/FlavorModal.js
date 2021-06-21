@@ -105,10 +105,11 @@ function FlavorModal(){
               alt={flavorInfo.name} wrapped />
               <Modal.Description>
                 <div id="modalContent">
-                  <div>
-                    <ShopMap />
-                  </div>
                   <div id="flavorDetailsDiv">
+                    <div id="shopImageAndMapContainer">
+                      <Image size="medium" src={flavorInfo.shop.image_url} alt={flavorInfo.shop.name}></Image>
+                      <ShopMap />
+                    </div>
                     <a className="modalLink" href={flavorInfo.shop.website} target="_blank" rel="noreferrer">{flavorInfo.shop.name}</a>
                     <Header>What this flavor is about...</Header>
                     <p className="modalText">{flavorInfo.description}</p>

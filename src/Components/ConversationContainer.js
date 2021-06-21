@@ -1,6 +1,6 @@
 import {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {Feed, Image} from 'semantic-ui-react'
+import {Item} from 'semantic-ui-react'
 import {useHistory} from 'react-router-dom'
 
 function ConversationContainer(){
@@ -28,30 +28,40 @@ function ConversationContainer(){
 
   const userConversations = filteredConversations.map(convoObj => {
     return (
-      <Feed.Event key={convoObj.id}>
-        <Feed.Label>
-          {loggedInUser.id === convoObj.sender.id ? 
-            <Image src={convoObj.recipient.profile_img} alt={convoObj.recipient.username}/> :
-            <Image src={convoObj.sender.profile_img}/>}
-        </Feed.Label>
-        <Feed.Content>
-          <Feed.Summary>
-            {loggedInUser.id === convoObj.sender.id ?
-            <Feed.User onClick={() => history.push(`conversations/${convoObj.id}`)}>Convo with {convoObj.recipient.username}</Feed.User> : 
-            <Feed.User onclick={() => history.push(`conversations/${convoObj.id}`)}>Convo with {convoObj.sender.username}</Feed.User>}
-          </Feed.Summary>
-        </Feed.Content>
-      </Feed.Event>
+      <Item key={convoObj.id}>
+        {loggedInUser.id === convoObj.sender.id ? 
+            <Item.Image src={convoObj.recipient.profile_img} alt={convoObj.recipient.username}/> :
+            <Item.Image src={convoObj.sender.profile_img} alt={convoObj.sender.name}/>}
+        <Item.Content verticalAlign='middle'>
+        {loggedInUser.id === convoObj.sender.id ?
+          <Item.Header onClick={() => history.push(`conversations/${convoObj.id}`)}>Convo with {convoObj.recipient.username}</Item.Header> : 
+          <Item.Header onClick={() => history.push(`conversations/${convoObj.id}`)}>Convo with {convoObj.sender.username}</Item.Header>}
+        </Item.Content>
+      </Item>
+      // <Feed.Event key={convoObj.id}>
+      //   <Feed.Label>
+      //     {loggedInUser.id === convoObj.sender.id ? 
+      //       <Image src={convoObj.recipient.profile_img} alt={convoObj.recipient.username}/> :
+      //       <Image src={convoObj.sender.profile_img}/>}
+      //   </Feed.Label>
+      //   <Feed.Content>
+      //     <Feed.Summary>
+      //       {loggedInUser.id === convoObj.sender.id ?
+      //       <Feed.User onClick={() => history.push(`conversations/${convoObj.id}`)}>Convo with {convoObj.recipient.username}</Feed.User> : 
+      //       <Feed.User onClick={() => history.push(`conversations/${convoObj.id}`)}>Convo with {convoObj.sender.username}</Feed.User>}
+      //     </Feed.Summary>
+      //   </Feed.Content>
+      // </Feed.Event>
     )
   })
 
   return (
     <div id="conversationContainer">
       <h2>Active Convos</h2>
-      <Feed>
+      <Item.Group>
         {userConversations.length > 0 ? userConversations : 
         <p className="bodyText">You don't have any active conversations with other users. Get chatting!</p>}
-      </Feed>
+      </Item.Group>
     </div>
   )
 }
