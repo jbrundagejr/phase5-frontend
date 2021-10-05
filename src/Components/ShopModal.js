@@ -14,7 +14,7 @@ function ShopModal(){
   const dispatch = useDispatch()
 
   useEffect(() => {
-    fetch(`http://localhost:3000/shops/${params.id}`)
+    fetch(`https://ancient-meadow-93230.herokuapp.com/shops/${params.id}`)
       .then(res => res.json())
       .then(shopData => {
         dispatch({type: "SET_SHOP_DATA", payload: shopData})
@@ -37,7 +37,7 @@ function ShopModal(){
   } else {
     
     function handleReviewDelete(id){
-      fetch(`http://localhost:3000/reviews/${id}`, {
+      fetch(`https://ancient-meadow-93230.herokuapp.com/reviews/${id}`, {
         method: "DELETE",
         headers: {
           "Authorization": localStorage.token,

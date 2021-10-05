@@ -10,7 +10,7 @@ function DeleteAccountModal(){
   const history = useHistory()
 
   function handleDelete(id){
-    fetch(`http://localhost:3000/users/${id}`, {
+    fetch(`https://ancient-meadow-93230.herokuapp.com/users/${id}`, {
       method: "DELETE",
       headers: {
         "Authorization": localStorage.token

@@ -8,7 +8,7 @@ function ShopContainer(){
   const dispatch = useDispatch()
   
   useEffect(() => {
-    fetch("http://localhost:3000/shops")
+    fetch("https://ancient-meadow-93230.herokuapp.com/shops")
       .then(res => res.json())
       .then(shopData => {
         dispatch({type: "SET_SHOP_ARR", payload: shopData})
