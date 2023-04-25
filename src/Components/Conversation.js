@@ -4,7 +4,7 @@ import {useParams, Link} from 'react-router-dom'
 import {Comment, Header, Icon, Segment, Dimmer, Loader, Image} from 'semantic-ui-react'
 import MessageForm from './MessageForm'
 import {createConsumer} from '@rails/actioncable'
-import { SERVER_URL } from '../../server_url'
+import { SERVER_URL } from '../server_url'
 
 function Conversation(){
   const loggedInUser = useSelector(state => state.userReducer.user)

@@ -3,7 +3,7 @@ import {Form, Input, Button} from 'semantic-ui-react'
 import {useHistory} from 'react-router-dom'
 import {useDispatch} from 'react-redux'
 import CreateProfile from './CreateProfile'
-import { SERVER_URL } from '../../server_url'
+import { SERVER_URL } from '../server_url'
  
 function Login(){
   const [email, setEmail] = useState("")

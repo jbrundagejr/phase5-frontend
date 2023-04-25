@@ -4,7 +4,7 @@ import {useEffect, useState} from 'react'
 import {useParams, useHistory, Link} from 'react-router-dom'
 import FlavorReviewForm from './FlavorReviewForm'
 import ShopMap from './ShopMap'
-import { SERVER_URL } from '../../server_url'
+import { SERVER_URL } from '../server_url'
 
 function FlavorModal(){
   const loggedInUser = useSelector(state => state.userReducer.user)

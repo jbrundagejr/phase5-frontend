@@ -4,7 +4,7 @@ import {useSelector, useDispatch} from 'react-redux'
 import {Segment, Dimmer, Loader, Image, Item, Icon} from 'semantic-ui-react'
 import DeleteAccountModal from './DeleteAccountModal'
 import EditAccountModal from './EditAccountModal'
-import { SERVER_URL } from '../../server_url'
+import { SERVER_URL } from '../server_url'
 
 function Profile(){
   const [isLoaded, setIsLoaded] = useState(false)

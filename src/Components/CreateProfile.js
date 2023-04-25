@@ -2,7 +2,7 @@ import {useState} from 'react'
 import {Modal, Form, Input, Button, Icon} from 'semantic-ui-react'
 import {useHistory} from 'react-router-dom'
 import {useDispatch} from 'react-redux'
-import { SERVER_URL } from '../../server_url'
+import { SERVER_URL } from '../server_url'
 
 function CreateProfile(){
   const [open, setOpen] = useState(false)

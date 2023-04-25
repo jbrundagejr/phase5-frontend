@@ -1,7 +1,7 @@
 import {Form, TextArea, Rating, Button} from 'semantic-ui-react'
 import {useDispatch, useSelector} from 'react-redux'
 import {useState} from 'react'
-import { SERVER_URL } from '../../server_url'
+import { SERVER_URL } from '../server_url'
 
 function FlavorReviewForm(){
   const [userContent, setUserContent] = useState("")

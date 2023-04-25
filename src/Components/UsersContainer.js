@@ -2,7 +2,7 @@ import {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {Card, Image} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
-import { SERVER_URL } from '../../server_url'
+import { SERVER_URL } from '../server_url'
 
 function UserContainer(){
   const dispatch = useDispatch()

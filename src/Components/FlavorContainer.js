@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {Card, Image} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 import Search from './Search'
-import { SERVER_URL } from '../../server_url'
+import { SERVER_URL } from '../server_url.js'
 
 function FlavorContainer(){
   const dispatch = useDispatch()

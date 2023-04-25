@@ -1,7 +1,7 @@
 import {Form, TextArea, Button} from 'semantic-ui-react'
 import {useSelector} from 'react-redux'
 import {useState} from 'react'
-import { SERVER_URL } from '../../server_url'
+import { SERVER_URL } from '../server_url'
 
 function MessageForm(){
   const conversation = useSelector(state => state.convoReducer.convo)

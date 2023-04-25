@@ -2,7 +2,7 @@ import {Modal, Button, Input, Form, Icon} from 'semantic-ui-react'
 import {useDispatch, useSelector} from 'react-redux'
 import {useParams} from 'react-router-dom'
 import {useState} from 'react'
-import { SERVER_URL } from '../../server_url'
+import { SERVER_URL } from '../server_url'
 
 function EditAccountModal(){
   const userinfo = useSelector(state => state.userReducer.user)

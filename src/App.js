@@ -9,10 +9,12 @@ import UsersContainer from './Components/UsersContainer'
 import Profile from './Components/Profile'
 import ConversationContainer from './Components/ConversationContainer'
 import Conversation from './Components/Conversation'
-import { SERVER_URL } from '../server_url'
+import { SERVER_URL } from './server_url'
 
 function App() {
 
+
+  console.log(SERVER_URL)
   const dispatch = useDispatch()
   
   useEffect(() => {
