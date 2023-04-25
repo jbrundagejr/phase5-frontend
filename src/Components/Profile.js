@@ -4,6 +4,7 @@ import {useSelector, useDispatch} from 'react-redux'
 import {Segment, Dimmer, Loader, Image, Item, Icon} from 'semantic-ui-react'
 import DeleteAccountModal from './DeleteAccountModal'
 import EditAccountModal from './EditAccountModal'
+import { SERVER_URL } from '../../server_url'
 
 function Profile(){
   const [isLoaded, setIsLoaded] = useState(false)
@@ -13,7 +14,7 @@ function Profile(){
   const history = useHistory()
 
   useEffect (() => {
-    fetch(`http://localhost:3000/users/${params.id}`)
+    fetch(`${SERVER_URL}/users/${params.id}`)
       .then(res => res.json())
       .then(userData => {
         dispatch({type: "SET_PROFILE_USER", payload: userData})
@@ -23,7 +24,7 @@ function Profile(){
   }, [dispatch, params.id])
 
   useEffect (() => {
-    fetch(`http://localhost:3000/conversations`)
+    fetch(`${SERVER_URL}/conversations`)
       .then(res => res.json())
       .then(convoData => {
         dispatch({type: "SET_CONVO_ARR", payload: convoData})
@@ -46,7 +47,7 @@ function Profile(){
     } else {
 
       function handleReviewDelete(id){
-        fetch(`http://localhost:3000/flavor_reviews/${id}`, {
+        fetch(`${SERVER_URL}/flavor_reviews/${id}`, {
           method: "DELETE",
           headers: {
             "Authorization": localStorage.token,
@@ -100,7 +101,7 @@ function Profile(){
               sender_id: loggedInUser.id,
               recipient_id: userInformation.id
             }
-            fetch("http://localhost:3000/conversations", {
+            fetch(`${SERVER_URL}/conversations`, {
               method: "POST",
               headers: {
                 "Authorization": localStorage.token,

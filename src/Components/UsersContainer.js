@@ -2,12 +2,13 @@ import {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {Card, Image} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
+import { SERVER_URL } from '../../server_url'
 
 function UserContainer(){
   const dispatch = useDispatch()
   
   useEffect(() => {
-    fetch("http://localhost:3000/users")
+    fetch(`${SERVER_URL}/users`)
       .then(res => res.json())
       .then(userData => {
         dispatch({type: "SET_USER_ARR", payload: userData})

@@ -2,6 +2,7 @@ import {Modal, Button, Input, Form, Icon} from 'semantic-ui-react'
 import {useDispatch, useSelector} from 'react-redux'
 import {useParams} from 'react-router-dom'
 import {useState} from 'react'
+import { SERVER_URL } from '../../server_url'
 
 function EditAccountModal(){
   const userinfo = useSelector(state => state.userReducer.user)
@@ -32,7 +33,7 @@ function EditAccountModal(){
       email: userEmail,
       profile_img: userProfilePic
     }
-    fetch(`http://localhost:3000/users/${params.id}`, {
+    fetch(`${SERVER_URL}/users/${params.id}`, {
       method: "PATCH",
       headers: {
         "Authorization": localStorage.token,

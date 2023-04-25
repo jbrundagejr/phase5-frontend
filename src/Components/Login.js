@@ -3,6 +3,7 @@ import {Form, Input, Button} from 'semantic-ui-react'
 import {useHistory} from 'react-router-dom'
 import {useDispatch} from 'react-redux'
 import CreateProfile from './CreateProfile'
+import { SERVER_URL } from '../../server_url'
  
 function Login(){
   const [email, setEmail] = useState("")
@@ -21,7 +22,7 @@ function Login(){
 
   function handleClick(e){
     e.preventDefault()
-    fetch("http://localhost:3000/login", {
+    fetch(`${SERVER_URL}/login`, {
       method: "POST",
       headers: {
         "Content-type":"application/json"

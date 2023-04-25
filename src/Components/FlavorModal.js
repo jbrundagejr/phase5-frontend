@@ -4,6 +4,7 @@ import {useEffect, useState} from 'react'
 import {useParams, useHistory, Link} from 'react-router-dom'
 import FlavorReviewForm from './FlavorReviewForm'
 import ShopMap from './ShopMap'
+import { SERVER_URL } from '../../server_url'
 
 function FlavorModal(){
   const loggedInUser = useSelector(state => state.userReducer.user)
@@ -15,7 +16,7 @@ function FlavorModal(){
   const dispatch = useDispatch()
   
   useEffect(() => {
-    fetch(`http://localhost:3000/flavors/${params.id}`)
+    fetch(`${SERVER_URL}/flavors/${params.id}`)
       .then(res => res.json())
       .then(flavorData => {
         dispatch({type: "SET_FLAVOR_DATA", payload: flavorData})
@@ -38,7 +39,7 @@ function FlavorModal(){
   } else {
 
   function handleReviewDelete(id){
-    fetch(`http://localhost:3000/flavor_reviews/${id}`, {
+    fetch(`${SERVER_URL}/flavor_reviews/${id}`, {
       method: "DELETE",
       headers: {
         "Authorization": localStorage.token,

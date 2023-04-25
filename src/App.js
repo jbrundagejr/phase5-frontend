@@ -9,6 +9,7 @@ import UsersContainer from './Components/UsersContainer'
 import Profile from './Components/Profile'
 import ConversationContainer from './Components/ConversationContainer'
 import Conversation from './Components/Conversation'
+import { SERVER_URL } from '../server_url'
 
 function App() {
 
@@ -16,7 +17,7 @@ function App() {
   
   useEffect(() => {
     if(localStorage.token){
-      fetch("http://localhost:3000/keep_logged_in", {
+      fetch(`${SERVER_URL}/keep_logged_in`, {
         method: "GET",
         headers: {
           "Authorization": localStorage.token

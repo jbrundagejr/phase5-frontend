@@ -2,6 +2,7 @@ import {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {Item} from 'semantic-ui-react'
 import {useHistory} from 'react-router-dom'
+import { SERVER_URL } from '../../server_url'
 
 function ConversationContainer(){
   const loggedInUser = useSelector(state => state.userReducer.user)
@@ -9,7 +10,7 @@ function ConversationContainer(){
   const history = useHistory()
 
   useEffect(() => {
-    fetch("http://localhost:3000/conversations")
+    fetch(`${SERVER_URL}/conversations`)
       .then(res => res.json())
       .then(convoData => {
         dispatch({type: "SET_CONVO_ARR", payload: convoData})

@@ -3,12 +3,13 @@ import {useDispatch, useSelector} from 'react-redux'
 import {Card, Image} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 import Search from './Search'
+import { SERVER_URL } from '../../server_url'
 
 function FlavorContainer(){
   const dispatch = useDispatch()
   
   useEffect(() => {
-    fetch("http://localhost:3000/flavors")
+    fetch(`${SERVER_URL}/flavors`)
       .then(res => res.json())
       .then(flavorData => {
         dispatch({type: "SET_FLAVOR_ARR", payload: flavorData})

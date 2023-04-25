@@ -4,6 +4,7 @@ import {useParams, Link} from 'react-router-dom'
 import {Comment, Header, Icon, Segment, Dimmer, Loader, Image} from 'semantic-ui-react'
 import MessageForm from './MessageForm'
 import {createConsumer} from '@rails/actioncable'
+import { SERVER_URL } from '../../server_url'
 
 function Conversation(){
   const loggedInUser = useSelector(state => state.userReducer.user)
@@ -13,7 +14,7 @@ function Conversation(){
   const cable = useRef()
 
   useEffect(() => {
-    fetch(`http://localhost:3000/conversations/${params.id}`)
+    fetch(`${SERVER_URL}/conversations/${params.id}`)
     .then(res => res.json())
     .then(convoData => {
       dispatch({type: "SET_CONVERSATION_DATA", payload: convoData})
@@ -26,7 +27,7 @@ function Conversation(){
 
   useEffect(() => {
     if(!cable.current){
-      cable.current = createConsumer("ws://localhost:3000/cable")
+      cable.current = createConsumer("ws://phase5-backend-development.onrender.com/cable")
     }
     const paramsToSend = {
       channel: "ConversationChannel",
@@ -64,7 +65,7 @@ function Conversation(){
   } else {
 
     function handleMessageDelete(id){
-      fetch(`http://localhost:3000/messages/${id}`, {
+      fetch(`${SERVER_URL}/messages/${id}`, {
         method: "DELETE",
         headers: {
           "Authorization": localStorage.token

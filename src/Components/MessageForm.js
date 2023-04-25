@@ -1,6 +1,7 @@
 import {Form, TextArea, Button} from 'semantic-ui-react'
 import {useSelector} from 'react-redux'
 import {useState} from 'react'
+import { SERVER_URL } from '../../server_url'
 
 function MessageForm(){
   const conversation = useSelector(state => state.convoReducer.convo)
@@ -12,7 +13,7 @@ function MessageForm(){
       conversation_id: conversation.id,
       content: userContent
     }
-    fetch("http://localhost:3000/messages", {
+    fetch(`${SERVER_URL}/messages`, {
       method: "POST",
       headers: {
         "Authorization": localStorage.token,

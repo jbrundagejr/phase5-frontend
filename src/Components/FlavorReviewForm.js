@@ -1,6 +1,7 @@
 import {Form, TextArea, Rating, Button} from 'semantic-ui-react'
 import {useDispatch, useSelector} from 'react-redux'
 import {useState} from 'react'
+import { SERVER_URL } from '../../server_url'
 
 function FlavorReviewForm(){
   const [userContent, setUserContent] = useState("")
@@ -20,7 +21,7 @@ function FlavorReviewForm(){
       content: userContent,
       rating: userRating.rating
     }
-    fetch("http://localhost:3000/flavor_reviews", {
+    fetch(`${SERVER_URL}/flavor_reviews`, {
       method: "POST",
       headers: {
         "Authorization": localStorage.token,
